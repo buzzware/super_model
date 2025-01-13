@@ -1,2 +1,2 @@
 #!/bin/zsh
-rm -rf .dart_tool && rm -rf build && dart --enable-experiment=macros --verbose test --reporter=expanded test/PropertyMeta_test.dart
+rm -rf .dart_tool && rm -rf build && dart --enable-experiment=macros --verbose test --reporter=expanded # test/PropertyMeta_test.dart

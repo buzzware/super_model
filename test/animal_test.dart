@@ -6,11 +6,14 @@ part 'animal_test.mapper.dart';
 
 @MappableClass()
 class Animal with AnimalMappable {
+  static const fromJson = AnimalMapper.fromJson;
+  static const fromMap = AnimalMapper.fromMap;
+
   final String name;
   final String species;
   final int age;
 
-  Animal({
+  const Animal({
     required this.name,
     required this.species,
     required this.age,
@@ -35,7 +38,7 @@ void main() {
       const jsonString = '{"name":"Fido","species":"Dog","age":3}';
 
       // Use the generated mapper to parse JSON.
-      final animal = AnimalMapper.fromJson(jsonString);
+      final animal = Animal.fromJson(jsonString);
 
       expect(animal.name, equals('Fido'));
       expect(animal.species, equals('Dog'));
@@ -61,7 +64,7 @@ void main() {
       };
 
       // Use the generated mapper to parse a Map.
-      final animal = AnimalMapper.fromMap(map);
+      final animal = Animal.fromMap(map);
 
       expect(animal.name, equals('Tweety'));
       expect(animal.species, equals('Bird'));

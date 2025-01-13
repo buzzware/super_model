@@ -1,6 +1,6 @@
 part of './super_model.dart';
 
-// before compilation
+// used during macro execution, before compilation, so runtime Types are not available
 class MacroMemberMeta {
   final String name;
   final String baseTypeString;

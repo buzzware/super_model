@@ -83,7 +83,12 @@ macro class SuperModel implements ClassDeclarationsMacro {
 
     // declare default constructor
     var code = "${clazz.identifier.name}({\n";
-    code += simpleProperties.map<String>((p) => "${p.typeString} ${p.name}").join(',\n');
+    code += simpleProperties.map<String>((p) {
+      if (p.nullable)
+        return "${p.typeString} ${p.name}";
+      else
+        return "required ${p.typeString} ${p.name}";
+    }).join(',\n');
     code += "}) :\n";
     code += simpleProperties.map<String>((p) => "_${p.name} = ${p.name}").join(',\n');
     code += "\n;";

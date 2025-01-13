@@ -8,6 +8,16 @@ class Thing extends SuperModelBase {
 
   String? _name;
   String? _colour;
+
+  // Thing({
+  //   required int id,
+  //   String? name,
+  //   required String? colour
+  // }) :
+  //   _id = id,
+  //   _name = name,
+  //   _colour = colour
+  //   ;
 }
 
 class Thing2 {
@@ -94,31 +104,38 @@ void main() {
   group('SuperModel', () {
 
     test('default constructor', () {
-        Thing thing = Thing(name: "Fred");
+        Thing thing = Thing(id: 3, colour: 'red', name: "Fred");
+        expect(thing.id,equals(3));
+        expect(thing.colour,equals('red'));
     });
 
-    // test('constants and read', () {
-    //   Thing thing = Thing(
-    //       name: "Fred"
-    //   );
-    //   expect(thing, isNotNull);
-    //   expect(thing.name,equals("Fred"));
-    //   expect(thing[Thing.$name],equals("Fred"));
-    //   thing[Thing.$colour] = "red";
-    //   expect(thing.colour,equals("red"));
-    //
-    //   expect(Thing.$id, equals('id'));
-    //   expect(Thing.$name, equals('name'));
-    //   expect(Thing.$meta.properties[Thing.$id]!.nullable,isFalse);
-    //   expect(thing.$classMeta.properties[Thing.$id]!.type,equals(int));
-    //
-    //   expect(Thing.$meta.idName,equals('id'));
-    //   expect(Thing.$meta.idType,equals(int));
-    //
-    //   expect(Thing.$meta.properties[Thing.$name]!.nullable,isTrue);
-    //   expect(Thing.$meta.properties[Thing.$name]!.type,equals(String));
-    //
-    // });
+    test('default constructor', () {
+        Thing thing = Thing(id: 3, colour: 'red', name: "Fred");
+        expect(thing.id,equals(3));
+        expect(thing.colour,equals('red'));
+    });
+
+    test('constants and read', () {
+      Thing thing = Thing(
+        id: 3,
+        name: "Fred"
+      );
+      expect(thing, isNotNull);
+      expect(thing.name,equals("Fred"));
+      expect(thing[Thing.$name],equals("Fred"));
+
+      expect(Thing.$id, equals('id'));
+      expect(Thing.$name, equals('name'));
+      expect(Thing.$meta.properties[Thing.$id]!.nullable,isFalse);
+      expect(thing.$classMeta.properties[Thing.$id]!.type,equals(int));
+
+      expect(Thing.$meta.idName,equals('id'));
+      expect(Thing.$meta.idType,equals(int));
+
+      expect(Thing.$meta.properties[Thing.$name]!.nullable,isTrue);
+      expect(Thing.$meta.properties[Thing.$name]!.type,equals(String));
+
+    });
 
 
   });

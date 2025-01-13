@@ -1,5 +1,6 @@
 part of './super_model.dart';
 
+// used by ModelClassMeta
 class PropertyMeta {
   final String name;
   final Type type;

@@ -1,5 +1,17 @@
-analyzer:
-  enable-experiment:
-    - macros
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+analyzer:
+  plugins:
+    - dart_code_metrics
+  errors:
+    always_specify_types: true
+    prefer_final_fields: true
+  enable-experiment:
+    - macros
+linter:
+  rules:
+    - avoid_redundant_argument_values
+    - avoid_setters_without_getters
+    - prefer_const_constructors
+    - prefer_typing_uninitialized_variables
+    - sort_constructors_first

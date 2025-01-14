@@ -88,6 +88,39 @@ macro class SuperModelMappableMapper implements ClassDeclarationsMacro {
       }
     }
 
+    mixin ${className}Mappable {
+      String toJson() {
+        return ${className}Mapper.ensureInitialized()
+            .encodeJson<$className>(this as $className);
+      }
+
+      Map<String, dynamic> toMap() {
+        return ${className}Mapper.ensureInitialized()
+            .encodeMap<$className>(this as $className);
+      }
+
+      ${className}CopyWith<$className, $className, $className> get copyWith =>
+          _${className}CopyWithImpl(this as $className, \$identity, \$identity);
+
+      @override
+      String toString() {
+        return ${className}Mapper.ensureInitialized()
+            .stringifyValue(this as $className);
+      }
+
+      @override
+      bool operator ==(Object other) {
+        return ${className}Mapper.ensureInitialized()
+            .equalsValue(this as $className, other);
+      }
+
+      @override
+      int get hashCode {
+        return ${className}Mapper.ensureInitialized()
+            .hashValue(this as $className);
+      }
+    }
+
     ''';
     log(builder,mapperCode);
     builder.declareInLibrary(DeclarationCode.fromString(mapperCode));

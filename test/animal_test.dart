@@ -3,33 +3,6 @@ import 'package:super_model/macros/SuperModelMappableMapper.dart';
 import 'package:test/test.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
-mixin AnimalMappable {
-  String toJson() {
-    return AnimalMapper.ensureInitialized().encodeJson<Animal>(this as Animal);
-  }
-
-  Map<String, dynamic> toMap() {
-    return AnimalMapper.ensureInitialized().encodeMap<Animal>(this as Animal);
-  }
-
-  AnimalCopyWith<Animal, Animal, Animal> get copyWith =>
-      _AnimalCopyWithImpl(this as Animal, $identity, $identity);
-  @override
-  String toString() {
-    return AnimalMapper.ensureInitialized().stringifyValue(this as Animal);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return AnimalMapper.ensureInitialized().equalsValue(this as Animal, other);
-  }
-
-  @override
-  int get hashCode {
-    return AnimalMapper.ensureInitialized().hashValue(this as Animal);
-  }
-}
-
 extension AnimalValueCopy<$R, $Out> on ObjectCopyWith<$R, Animal, $Out> {
   AnimalCopyWith<$R, Animal, $Out> get $asAnimal =>
       $base.as((v, t, t2) => _AnimalCopyWithImpl(v, t, t2));

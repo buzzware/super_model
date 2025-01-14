@@ -3,11 +3,6 @@ import 'package:super_model/macros/SuperModelMappableMapper.dart';
 import 'package:test/test.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
-extension AnimalValueCopy<$R, $Out> on ObjectCopyWith<$R, Animal, $Out> {
-  AnimalCopyWith<$R, Animal, $Out> get $asAnimal =>
-      $base.as((v, t, t2) => _AnimalCopyWithImpl(v, t, t2));
-}
-
 abstract class AnimalCopyWith<$R, $In extends Animal, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call({String? name, String? species, int? age});

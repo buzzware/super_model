@@ -123,6 +123,12 @@ macro class SuperModelMappableMapper implements ClassDeclarationsMacro {
       }
     }
 
+    extension ${className}ValueCopy<\$R, \$Out>
+        on ObjectCopyWith<\$R, $className, \$Out> {
+      ${className}CopyWith<\$R, $className, \$Out> get \$as$className =>
+          \$base.as((v, t, t2) => _${className}CopyWithImpl(v, t, t2));
+    }
+
     class _${className}CopyWithImpl<\$R, \$Out>
         extends ClassCopyWithBase<\$R, $className, \$Out>
         implements ${className}CopyWith<\$R, $className, \$Out> {

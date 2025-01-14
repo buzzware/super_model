@@ -3,12 +3,6 @@ import 'package:super_model/macros/SuperModelMappableMapper.dart';
 import 'package:test/test.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
-abstract class AnimalCopyWith<$R, $In extends Animal, $Out>
-    implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? name, String? species, int? age});
-  AnimalCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
-}
-
 @SuperModelMappableMapper()
 @MappableClass()
 class Animal {

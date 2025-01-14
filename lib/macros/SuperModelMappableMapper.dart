@@ -38,6 +38,13 @@ macro class SuperModelMappableMapper implements ClassDeclarationsMacro {
 
     builder.declareInLibrary(DeclarationCode.fromString("import 'package:dart_mappable/dart_mappable.dart';"));
 
+    builder.declareInType(DeclarationCode.fromString('''
+    
+    
+    
+    
+    '''));
+
     final classCode = '''
       String toJson() {
         return ${className}Mapper.ensureInitialized()
@@ -160,6 +167,33 @@ macro class SuperModelMappableMapper implements ClassDeclarationsMacro {
     //log(builder,mapperCode);
     builder.declareInLibrary(DeclarationCode.fromString(mapperCode));
 
+    // var args = selectFieldNames.map((field) {
+    //   builder.report(Diagnostic(DiagnosticMessage(field),Severity.info));
+    //   final fieldType = fieldMetas[field]!.baseTypeString;
+    //   builder.report(Diagnostic(DiagnosticMessage(fieldType),Severity.info));
+    //   return '$fieldType? $field';
+    // }).join(', ');
+    // builder.report(Diagnostic(DiagnosticMessage(args),Severity.info));
+    //
+    // var copyWithCode = '''
+    //   abstract class ${className}CopyWith<\$R, \$In extends $className, \$Out>
+    //       implements ClassCopyWith<\$R, \$In, \$Out> {
+    //     \$R call({${args}});
+    //     ${className}CopyWith<\$R2, \$In, \$Out2> \$chain<\$R2, \$Out2>(
+    //         Then<\$Out2, \$R2> t);
+    //   }
+    // ''';
+
+    // I think this shows that this code cannot be implemented in a macro context
+    var copyWithCode = '''
+      abstract class AnimalCopyWith<\$R, \$In extends Animal, \$Out>
+          implements ClassCopyWith<\$R, \$In, \$Out> {
+        \$R call({String? name, String? species, int? age});
+        AnimalCopyWith<\$R2, \$In, \$Out2> \$chain<\$R2, \$Out2>(Then<\$Out2, \$R2> t);
+      }    
+    ''';
+    builder.report(Diagnostic(DiagnosticMessage(copyWithCode),Severity.info));
+    builder.declareInLibrary(DeclarationCode.fromString(copyWithCode));
 
     log(builder,"end");
   }

@@ -38,6 +38,41 @@ macro class SuperModelMappableMapper implements ClassDeclarationsMacro {
 
     builder.declareInLibrary(DeclarationCode.fromString("import 'package:dart_mappable/dart_mappable.dart';"));
 
+    final classCode = '''
+      String toJson() {
+        return ${className}Mapper.ensureInitialized()
+            .encodeJson<$className>(this as $className);
+      }
+
+      Map<String, dynamic> toMap() {
+        return ${className}Mapper.ensureInitialized()
+            .encodeMap<$className>(this as $className);
+      }
+
+      ${className}CopyWith<$className, $className, $className> get copyWith =>
+          _${className}CopyWithImpl(this as $className, \$identity, \$identity);
+
+      @override
+      String toString() {
+        return ${className}Mapper.ensureInitialized()
+            .stringifyValue(this as $className);
+      }
+
+      @override
+      bool operator ==(Object other) {
+        return ${className}Mapper.ensureInitialized()
+            .equalsValue(this as $className, other);
+      }
+
+      @override
+      int get hashCode {
+        return ${className}Mapper.ensureInitialized()
+            .hashValue(this as $className);
+      }
+    ''';
+    log(builder,classCode);
+    builder.declareInType(DeclarationCode.fromString(classCode));
+
     final mapperCode = '''
     class ${className}Mapper extends ClassMapperBase<$className> {
       ${className}Mapper._();
@@ -88,42 +123,11 @@ macro class SuperModelMappableMapper implements ClassDeclarationsMacro {
       }
     }
 
-    mixin ${className}Mappable {
-      String toJson() {
-        return ${className}Mapper.ensureInitialized()
-            .encodeJson<$className>(this as $className);
-      }
-
-      Map<String, dynamic> toMap() {
-        return ${className}Mapper.ensureInitialized()
-            .encodeMap<$className>(this as $className);
-      }
-
-      ${className}CopyWith<$className, $className, $className> get copyWith =>
-          _${className}CopyWithImpl(this as $className, \$identity, \$identity);
-
-      @override
-      String toString() {
-        return ${className}Mapper.ensureInitialized()
-            .stringifyValue(this as $className);
-      }
-
-      @override
-      bool operator ==(Object other) {
-        return ${className}Mapper.ensureInitialized()
-            .equalsValue(this as $className, other);
-      }
-
-      @override
-      int get hashCode {
-        return ${className}Mapper.ensureInitialized()
-            .hashValue(this as $className);
-      }
-    }
-
     ''';
-    log(builder,mapperCode);
+    //log(builder,mapperCode);
     builder.declareInLibrary(DeclarationCode.fromString(mapperCode));
+
+
     log(builder,"end");
   }
 }

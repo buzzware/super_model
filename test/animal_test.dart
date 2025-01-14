@@ -40,7 +40,7 @@ class _AnimalCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Animal, $Out>
 
 @SuperModelMappableMapper()
 @MappableClass()
-class Animal with AnimalMappable {
+class Animal {
   static const fromJson = AnimalMapper.fromJson;
   static const fromMap = AnimalMapper.fromMap;
 

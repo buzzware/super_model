@@ -123,22 +123,6 @@ macro class SuperModelMappableMapper implements ClassDeclarationsMacro {
       }
     }
 
-    extension ${className}ValueCopy<\$R, \$Out>
-        on ObjectCopyWith<\$R, $className, \$Out> {
-      ${className}CopyWith<\$R, $className, \$Out> get \$as$className =>
-          \$base.as((v, t, t2) => _${className}CopyWithImpl(v, t, t2));
-    }
-
-    abstract class ${className}CopyWith<\$R, \$In extends $className, \$Out>
-        implements ClassCopyWith<\$R, \$In, \$Out> {
-      \$R call({${selectFieldNames.map((field) {
-      final fieldType = fieldMetas[field]!.baseTypeString;
-      return '$fieldType? $field';
-    }).join(', ')}});
-      ${className}CopyWith<\$R2, \$In, \$Out2> \$chain<\$R2, \$Out2>(
-          Then<\$Out2, \$R2> t);
-    }
-
     class _${className}CopyWithImpl<\$R, \$Out>
         extends ClassCopyWithBase<\$R, $className, \$Out>
         implements ${className}CopyWith<\$R, $className, \$Out> {

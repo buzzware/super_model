@@ -49,8 +49,8 @@ macro class SuperModelMappableMapper implements ClassDeclarationsMacro {
             .encodeMap<$className>(this as $className);
       }
 
-      ${className}CopyWith<$className, $className, $className> get copyWith =>
-          _${className}CopyWithImpl(this as $className, \$identity, \$identity);
+      // ${className}CopyWith<$className, $className, $className> get copyWith =>
+      //     _${className}CopyWithImpl(this as $className, \$identity, \$identity);
 
       @override
       String toString() {

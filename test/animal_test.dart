@@ -3,46 +3,26 @@ import 'package:super_model/macros/SuperModelMappableMapper.dart';
 import 'package:test/test.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
-extension AnimalValueCopy<$R, $Out> on ObjectCopyWith<$R, Animal, $Out> {
-  AnimalCopyWith<$R, Animal, $Out> get $asAnimal =>
-      $base.as((v, t, t2) => _AnimalCopyWithImpl(v, t, t2));
+class AnimalMapper extends SimpleMapper<Animal> {
+  const AnimalMapper();
+
+  @override
+  Animal decode(dynamic value) {
+    return Animal(name: '', age: 5, species: ''); //  Uri.parse(value as String);
+  }
+
+  @override
+  dynamic encode(Animal self) {
+    return self.toString();
+  }
 }
 
-abstract class AnimalCopyWith<$R, $In extends Animal, $Out>
-    implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? name, String? species, int? age});
-  AnimalCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
-}
 
-class _AnimalCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Animal, $Out>
-    implements AnimalCopyWith<$R, Animal, $Out> {
-  _AnimalCopyWithImpl(super.value, super.then, super.then2);
-
-  @override
-  late final ClassMapperBase<Animal> $mapper = AnimalMapper.ensureInitialized();
-  @override
-  $R call({String? name, String? species, int? age}) =>
-      $apply(FieldCopyWithData({
-        if (name != null) #name: name,
-        if (species != null) #species: species,
-        if (age != null) #age: age
-      }));
-  @override
-  Animal $make(CopyWithData data) => Animal(
-      name: data.get(#name, or: $value.name),
-      species: data.get(#species, or: $value.species),
-      age: data.get(#age, or: $value.age));
-
-  @override
-  AnimalCopyWith<$R2, Animal, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-      _AnimalCopyWithImpl($value, $cast, t);
-}
-
-@SuperModelMappableMapper()
-@MappableClass()
+//@SuperModelMappableMapper()
+@MappableClass(includeCustomMappers: [AnimalMapper()])
 class Animal {
-  static const fromJson = AnimalMapper.fromJson;
-  static const fromMap = AnimalMapper.fromMap;
+  // static const fromJson = AnimalMapper.fromJson;
+  // static const fromMap = AnimalMapper.fromMap;
 
   final String name;
   final String species;

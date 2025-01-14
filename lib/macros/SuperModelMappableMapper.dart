@@ -123,6 +123,49 @@ macro class SuperModelMappableMapper implements ClassDeclarationsMacro {
       }
     }
 
+    extension ${className}ValueCopy<\$R, \$Out>
+        on ObjectCopyWith<\$R, $className, \$Out> {
+      ${className}CopyWith<\$R, $className, \$Out> get \$as$className =>
+          \$base.as((v, t, t2) => _${className}CopyWithImpl(v, t, t2));
+    }
+
+    abstract class ${className}CopyWith<\$R, \$In extends $className, \$Out>
+        implements ClassCopyWith<\$R, \$In, \$Out> {
+      \$R call({${selectFieldNames.map((field) {
+      final fieldType = fieldMetas[field]!.baseTypeString;
+      return '$fieldType? $field';
+    }).join(', ')}});
+      ${className}CopyWith<\$R2, \$In, \$Out2> \$chain<\$R2, \$Out2>(
+          Then<\$Out2, \$R2> t);
+    }
+
+    class _${className}CopyWithImpl<\$R, \$Out>
+        extends ClassCopyWithBase<\$R, $className, \$Out>
+        implements ${className}CopyWith<\$R, $className, \$Out> {
+      _${className}CopyWithImpl(super.value, super.then, super.then2);
+
+      @override
+      late final ClassMapperBase<$className> \$mapper =
+          ${className}Mapper.ensureInitialized();
+      @override
+      \$R call({${selectFieldNames.map((field) {
+      final fieldType = fieldMetas[field]!.baseTypeString;
+      return '$fieldType? $field';
+      }).join(', ')}}) =>
+          \$apply(FieldCopyWithData({
+            ${selectFieldNames.map((field) => 'if ($field != null) #$field: $field').join(',\n')}
+          }));
+
+      @override
+      $className \$make(CopyWithData data) => $className(
+          ${selectFieldNames.map((field) =>
+    '$field: data.get(#$field, or: \$value.$field)').join(', ')});
+
+      @override
+      ${className}CopyWith<\$R2, $className, \$Out2> \$chain<\$R2, \$Out2>(
+              Then<\$Out2, \$R2> t) =>
+          _${className}CopyWithImpl(\$value, \$cast, t);
+    }
     ''';
     //log(builder,mapperCode);
     builder.declareInLibrary(DeclarationCode.fromString(mapperCode));

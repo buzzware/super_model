@@ -1,9 +1,9 @@
 // test/mappable_animal_test.dart
+import 'package:super_model/macros/SuperModelMappableMapper.dart';
 import 'package:test/test.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
-part 'animal_test.mapper.dart';
-
+@SuperModelMappableMapper()
 @MappableClass()
 class Animal with AnimalMappable {
   static const fromJson = AnimalMapper.fromJson;

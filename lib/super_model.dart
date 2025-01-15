@@ -12,3 +12,4 @@ part 'SuperModelBase.dart';
 part 'PropertyMeta.dart';
 part 'MacroMemberMeta.dart';
 part 'ModelClassMeta.dart';
+part 'ISuperModel.dart';

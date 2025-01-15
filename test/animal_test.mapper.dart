@@ -6,36 +6,42 @@
 
 part of 'animal_test.dart';
 
-class AnimalMapper extends ClassMapperBase<Animal> {
-  AnimalMapper._();
+class MappableAnimalMapper extends ClassMapperBase<MappableAnimal> {
+  MappableAnimalMapper._();
 
-  static AnimalMapper? _instance;
-  static AnimalMapper ensureInitialized() {
+  static MappableAnimalMapper? _instance;
+  static MappableAnimalMapper ensureInitialized() {
     if (_instance == null) {
-      MapperContainer.globals.use(_instance = AnimalMapper._());
+      MapperContainer.globals.use(_instance = MappableAnimalMapper._());
     }
     return _instance!;
   }
 
   @override
-  final String id = 'Animal';
+  final String id = 'MappableAnimal';
 
-  static String _$name(Animal v) => v.name;
-  static const Field<Animal, String> _f$name = Field('name', _$name);
-  static String _$species(Animal v) => v.species;
-  static const Field<Animal, String> _f$species = Field('species', _$species);
-  static int _$age(Animal v) => v.age;
-  static const Field<Animal, int> _f$age = Field('age', _$age);
+  static int _$id(MappableAnimal v) => v.id;
+  static const Field<MappableAnimal, int> _f$id = Field('id', _$id);
+  static String _$name(MappableAnimal v) => v.name;
+  static const Field<MappableAnimal, String> _f$name = Field('name', _$name);
+  static String? _$species(MappableAnimal v) => v.species;
+  static const Field<MappableAnimal, String> _f$species =
+      Field('species', _$species, opt: true);
+  static int? _$age(MappableAnimal v) => v.age;
+  static const Field<MappableAnimal, int> _f$age =
+      Field('age', _$age, opt: true);
 
   @override
-  final MappableFields<Animal> fields = const {
+  final MappableFields<MappableAnimal> fields = const {
+    #id: _f$id,
     #name: _f$name,
     #species: _f$species,
     #age: _f$age,
   };
 
-  static Animal _instantiate(DecodingData data) {
-    return Animal(
+  static MappableAnimal _instantiate(DecodingData data) {
+    return MappableAnimal(
+        id: data.dec(_f$id),
         name: data.dec(_f$name),
         species: data.dec(_f$species),
         age: data.dec(_f$age));
@@ -44,73 +50,90 @@ class AnimalMapper extends ClassMapperBase<Animal> {
   @override
   final Function instantiate = _instantiate;
 
-  static Animal fromMap(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<Animal>(map);
+  static MappableAnimal fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<MappableAnimal>(map);
   }
 
-  static Animal fromJson(String json) {
-    return ensureInitialized().decodeJson<Animal>(json);
+  static MappableAnimal fromJson(String json) {
+    return ensureInitialized().decodeJson<MappableAnimal>(json);
   }
 }
 
-mixin AnimalMappable {
+mixin MappableAnimalMappable {
   String toJson() {
-    return AnimalMapper.ensureInitialized().encodeJson<Animal>(this as Animal);
+    return MappableAnimalMapper.ensureInitialized()
+        .encodeJson<MappableAnimal>(this as MappableAnimal);
   }
 
   Map<String, dynamic> toMap() {
-    return AnimalMapper.ensureInitialized().encodeMap<Animal>(this as Animal);
+    return MappableAnimalMapper.ensureInitialized()
+        .encodeMap<MappableAnimal>(this as MappableAnimal);
   }
 
-  AnimalCopyWith<Animal, Animal, Animal> get copyWith =>
-      _AnimalCopyWithImpl(this as Animal, $identity, $identity);
+  MappableAnimalCopyWith<MappableAnimal, MappableAnimal, MappableAnimal>
+      get copyWith => _MappableAnimalCopyWithImpl(
+          this as MappableAnimal, $identity, $identity);
   @override
   String toString() {
-    return AnimalMapper.ensureInitialized().stringifyValue(this as Animal);
+    return MappableAnimalMapper.ensureInitialized()
+        .stringifyValue(this as MappableAnimal);
   }
 
   @override
   bool operator ==(Object other) {
-    return AnimalMapper.ensureInitialized().equalsValue(this as Animal, other);
+    return MappableAnimalMapper.ensureInitialized()
+        .equalsValue(this as MappableAnimal, other);
   }
 
   @override
   int get hashCode {
-    return AnimalMapper.ensureInitialized().hashValue(this as Animal);
+    return MappableAnimalMapper.ensureInitialized()
+        .hashValue(this as MappableAnimal);
   }
 }
 
-extension AnimalValueCopy<$R, $Out> on ObjectCopyWith<$R, Animal, $Out> {
-  AnimalCopyWith<$R, Animal, $Out> get $asAnimal =>
-      $base.as((v, t, t2) => _AnimalCopyWithImpl(v, t, t2));
+extension MappableAnimalValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, MappableAnimal, $Out> {
+  MappableAnimalCopyWith<$R, MappableAnimal, $Out> get $asMappableAnimal =>
+      $base.as((v, t, t2) => _MappableAnimalCopyWithImpl(v, t, t2));
 }
 
-abstract class AnimalCopyWith<$R, $In extends Animal, $Out>
+abstract class MappableAnimalCopyWith<$R, $In extends MappableAnimal, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? name, String? species, int? age});
-  AnimalCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
+  $R call({int? id, String? name, String? species, int? age});
+  MappableAnimalCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+      Then<$Out2, $R2> t);
 }
 
-class _AnimalCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Animal, $Out>
-    implements AnimalCopyWith<$R, Animal, $Out> {
-  _AnimalCopyWithImpl(super.value, super.then, super.then2);
+class _MappableAnimalCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, MappableAnimal, $Out>
+    implements MappableAnimalCopyWith<$R, MappableAnimal, $Out> {
+  _MappableAnimalCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<Animal> $mapper = AnimalMapper.ensureInitialized();
+  late final ClassMapperBase<MappableAnimal> $mapper =
+      MappableAnimalMapper.ensureInitialized();
   @override
-  $R call({String? name, String? species, int? age}) =>
+  $R call(
+          {int? id,
+          String? name,
+          Object? species = $none,
+          Object? age = $none}) =>
       $apply(FieldCopyWithData({
+        if (id != null) #id: id,
         if (name != null) #name: name,
-        if (species != null) #species: species,
-        if (age != null) #age: age
+        if (species != $none) #species: species,
+        if (age != $none) #age: age
       }));
   @override
-  Animal $make(CopyWithData data) => Animal(
+  MappableAnimal $make(CopyWithData data) => MappableAnimal(
+      id: data.get(#id, or: $value.id),
       name: data.get(#name, or: $value.name),
       species: data.get(#species, or: $value.species),
       age: data.get(#age, or: $value.age));
 
   @override
-  AnimalCopyWith<$R2, Animal, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-      _AnimalCopyWithImpl($value, $cast, t);
+  MappableAnimalCopyWith<$R2, MappableAnimal, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _MappableAnimalCopyWithImpl($value, $cast, t);
 }

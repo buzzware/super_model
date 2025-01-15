@@ -30,6 +30,13 @@ class MappableAnimal with MappableAnimalMappable implements ISuperModel {
   static const $fromJson = MappableAnimalMapper.fromJson;
   static const $fromMap = MappableAnimalMapper.fromMap;
 
+  static Map<String, dynamic Function(MappableAnimal)> _$getters = {
+    $id: (MappableAnimal o) => o.id,
+    $name: (MappableAnimal o) => o.name,
+    $species: (MappableAnimal o) => o.species,
+    $age: (MappableAnimal o) => o.age
+  };
+
   @SuperModelId()
   final int id;
   final String name;
@@ -47,8 +54,12 @@ class MappableAnimal with MappableAnimalMappable implements ISuperModel {
   }
 
   @override
-  T $get<T>(String key) {
-    return toMap()[key] as T;
+  T? $get<T>(String key, [T? defaultValue = null]) {
+    var getter = _$getters[key];
+    if (getter==null) {
+      return defaultValue;
+    }
+    return getter(this) as T?;
   }
 
   @override
@@ -59,5 +70,12 @@ class MappableAnimal with MappableAnimalMappable implements ISuperModel {
   @override
   String $toJson() {
     return this.toJson();
+  }
+
+  dynamic operator[](String key) {
+    var getter = _$getters[key];
+    if (getter==null)
+      return null;
+    return getter!(this);
   }
 }

@@ -127,6 +127,32 @@ void main() {
         expect(MappableAnimal.$meta.fields[MappableAnimal.$name]!.nullable,isFalse);
         expect(MappableAnimal.$meta.fields[MappableAnimal.$name]!.type,equals(String));
       });
+
+      test('\$copyWith', () {
+        final animal = const MappableAnimal(
+          id: 3,
+          name: "Fred",
+          species: "dog"
+        );
+        var copy = animal.$copyWith(age: 5, species: null);
+        expect(copy.id,equals(3));
+        expect(copy.age,equals(5));
+        expect(animal.species,equals('dog'));
+        expect(copy.species,equals('dog'));  // $copyWith can't set to null
+      });
+
+      test('\$copyWithMap', () {
+        final animal = const MappableAnimal(
+          id: 3,
+          name: "Fred",
+          species: "dog"
+        );
+        var copy = animal.$copyWithMap({'age': 5, 'species': null});
+        expect(copy.id,equals(3));
+        expect(copy.age,equals(5));
+        expect(animal.species,equals('dog'));
+        expect(copy.species,equals(null));  // $copyWithMap can set to null
+      });
     });
   });
 }

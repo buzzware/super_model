@@ -44,7 +44,7 @@ class AnimalMapper extends ClassMapperBase<Animal> {
   @override
   final Function instantiate = _instantiate;
 
-  static Animal fromMap(Map<String, dynamic> map) {
+  static Animal fromMap( map) {
     return ensureInitialized().decodeMap<Animal>(map);
   }
 

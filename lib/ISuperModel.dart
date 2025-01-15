@@ -5,6 +5,7 @@ abstract class ISuperModel {
   T $get<T>(String key);
   M $copyWithMap<M>(Map<String, dynamic> map);
   Map<String, dynamic> $toMap();
+  String $toJson();
 }
 
 

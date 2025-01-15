@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 @SuperModel()
 class Thing extends SuperModelBase {
-  @CascadeId()
+  @SuperModelId()
   int _id = 0;
 
   String? _name;

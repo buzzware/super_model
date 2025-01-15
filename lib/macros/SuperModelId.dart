@@ -2,8 +2,8 @@ import 'package:macros/macros.dart';
 import '../super_model.dart';
 import 'macro_utils.dart';
 
-macro class CascadeId implements FieldDeclarationsMacro {
-  const CascadeId();
+macro class SuperModelId implements FieldDeclarationsMacro {
+  const SuperModelId();
 
   // @override
   // Future<void> buildDeclarationsForClass(ClassDeclaration clazz, MemberDeclarationBuilder builder) async {

@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:macros/macros.dart';
 
 // somehow macros can't be made part of the library
-export 'macros/CascadeId.dart';
+export 'macros/SuperModelId.dart';
 export 'macros/SuperModel.dart';
 
 part 'SuperModelBase.dart';

@@ -1,6 +1,5 @@
 import 'package:macros/macros.dart';
 import '../super_model.dart';
-import 'macro_utils.dart';
 
 macro class SuperModel implements ClassDeclarationsMacro {
   const SuperModel();

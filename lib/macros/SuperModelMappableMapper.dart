@@ -1,7 +1,5 @@
 import 'package:macros/macros.dart';
-
 import '../super_model.dart';
-import 'macro_utils.dart';
 
 void log(MemberDeclarationBuilder builder,String msg) {
   //builder.report(Diagnostic(DiagnosticMessage(msg),Severity.info));

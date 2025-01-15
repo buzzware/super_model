@@ -7,7 +7,9 @@ import 'package:macros/macros.dart';
 // somehow macros can't be made part of the library
 export 'macros/SuperModelId.dart';
 export 'macros/SuperModel.dart';
+export 'macros/MappableSuperModel.dart';
 
+part 'macros/macro_utils.dart';
 part 'SuperModelBase.dart';
 part 'PropertyMeta.dart';
 part 'MacroMemberMeta.dart';

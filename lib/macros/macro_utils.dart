@@ -1,5 +1,4 @@
-import 'package:macros/macros.dart';
-import 'package:super_model/super_model.dart';
+part of '../super_model.dart';
 
 String publicise(String name) {
   return name.startsWith('_') ? name.substring(1) : name;

@@ -1,5 +1,4 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:super_model/macros/SuperModelId.dart';
 import 'package:super_model/super_model.dart';
 part 'MappableAnimal.mapper.dart';
 
@@ -20,10 +19,10 @@ class MappableAnimal with MappableAnimalMappable implements ISuperModel {
   static const String $age = 'age';
 
   static const ModelClassMeta $meta = const ModelClassMeta(MappableAnimal,_idName,_idType, {
-    'id': const PropertyMeta('id', int, false, 'int', 'int'),
-    'name': const PropertyMeta('name', String, false, 'String', 'String'),
-    'species': const PropertyMeta('species', String, true, 'String', 'String?'),
-    'age': const PropertyMeta('age', int, true, 'int', 'int?'),
+    $id: const PropertyMeta($id, int, false, 'int', 'int'),
+    $name: const PropertyMeta($name, String, false, 'String', 'String'),
+    $species: const PropertyMeta($species, String, true, 'String', 'String?'),
+    $age: const PropertyMeta($age, int, true, 'int', 'int?'),
   });
 
   static const fromJson = MappableAnimalMapper.fromJson;

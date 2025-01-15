@@ -55,7 +55,7 @@ void main() {
       });
     });
     group('SuperModel methods', () {
-      test('\$toJSON', () {
+      test('toJSON', () {
         final animal = MappableAnimal(id: 1,name: 'Fido', species: 'Dog', age: 3);
         final jsonString = animal.$toJson();
         expect(jsonString, isA<String>());
@@ -64,7 +64,7 @@ void main() {
         expect(jsonString, contains('"age":3'));
       });
 
-      test('\$fromJson', () {
+      test('fromJson', () {
         const jsonString = '{"id": 1,"name":"Fido","species":"Dog","age":3}';
         final animal = MappableAnimal.$fromJson(jsonString);
         expect(animal.id, equals(1));
@@ -73,7 +73,7 @@ void main() {
         expect(animal.age, equals(3));
       });
 
-      test('\$toMap', () {
+      test('toMap', () {
         final animal = MappableAnimal(id: 2, name: 'Whiskers', species: 'Cat', age: 2);
         final map = animal.$toMap();
         expect(map, isA<Map<String, dynamic>>());
@@ -83,7 +83,7 @@ void main() {
         expect(map['age'], equals(2));
       });
 
-      test('\$fromMap', () {
+      test('fromMap', () {
         final map = {
           'id': 3,
           'name': 'Tweety',
@@ -128,7 +128,7 @@ void main() {
         expect(MappableAnimal.$meta.fields[MappableAnimal.$name]!.type,equals(String));
       });
 
-      test('\$copyWith', () {
+      test('copyWith', () {
         final animal = const MappableAnimal(
           id: 3,
           name: "Fred",
@@ -141,7 +141,7 @@ void main() {
         expect(copy.species,equals('dog'));  // $copyWith can't set to null
       });
 
-      test('\$copyWithMap', () {
+      test('copyWithMap', () {
         final animal = const MappableAnimal(
           id: 3,
           name: "Fred",

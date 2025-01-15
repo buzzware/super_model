@@ -89,12 +89,11 @@ class MappableAnimal with MappableAnimalMappable implements ISuperModel {
     String? species,
     int? age
   }) {
-  return MappableAnimal(
-    id: id ?? this.id,
-    name: name ?? this.name,
-    species: species ?? this.species,
-    age: age ?? this.age
-  );
+    return MappableAnimal(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      species: species ?? this.species,
+      age: age ?? this.age
+    );
   }
-
 }

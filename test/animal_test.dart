@@ -147,7 +147,7 @@ void main() {
           name: "Fred",
           species: "dog"
         );
-        var copy = animal.$copyWithMap({'age': 5, 'species': null});
+        var copy = animal.$copyWithMap<MappableAnimal>({'age': 5, 'species': null});
         expect(copy.id,equals(3));
         expect(copy.age,equals(5));
         expect(animal.species,equals('dog'));

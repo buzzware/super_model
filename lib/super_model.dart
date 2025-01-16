@@ -8,6 +8,7 @@ import 'package:macros/macros.dart';
 export 'macros/SuperModelId.dart';
 export 'macros/SuperModel.dart';
 export 'macros/MappableSuperModel.dart';
+export 'macros/BelongsTo.dart';
 
 part 'macros/macro_utils.dart';
 part 'SuperModelBase.dart';

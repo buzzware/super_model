@@ -16,7 +16,7 @@ macro class MappableSuperModel implements ClassDeclarationsMacro {
     var allFields = await builder.fieldsOf(clazz);
 
     // Filter fields to exclude static ones and ensure NamedTypeAnnotation
-    var selectFields = allFields.where((f) => !f.hasStatic && (f.type is NamedTypeAnnotation)).toList();
+    var selectFields = allFields.where((f) => !f.hasStatic && (f.type is NamedTypeAnnotation) && !f.identifier.name.startsWith('_')).toList();
     var selectFieldNames = selectFields.map((field) => field.identifier.name).toList();
 
     // Gather metadata about fields

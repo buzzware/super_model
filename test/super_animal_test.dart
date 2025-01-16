@@ -93,7 +93,7 @@ void main() {
       });
 
       test('meta constants', () {
-        final animal = const SuperAnimal(
+        final animal = SuperAnimal(
             id: 3,
             name: "Fred"
         );
@@ -124,7 +124,7 @@ void main() {
       });
 
       test('copyWith', () {
-        final animal = const SuperAnimal(
+        final animal = SuperAnimal(
           id: 3,
           name: "Fred",
           species: "dog"
@@ -137,7 +137,7 @@ void main() {
       });
 
       test('copyWithMap', () {
-        final animal = const SuperAnimal(
+        final animal = SuperAnimal(
           id: 3,
           name: "Fred",
           species: "dog"
@@ -147,6 +147,22 @@ void main() {
         expect(copy.age,equals(5));
         expect(animal.species,equals('dog'));
         expect(copy.species,equals(null));  // $copyWithMap can set to null
+      });
+    });
+    group('ISuperModel', () {
+      test('simple',() {
+        final animal = SuperAnimal(
+            id: 3,
+            name: "Fred",
+            species: "dog"
+        );
+        final ISuperModel model = animal;
+        expect(model.$classMeta.fields.keys, equals(['id', 'name', 'species', 'age']));
+        final model2 = model.$copyWithMap<ISuperModel>({'name': 'John'});
+        expect(model2.$get('name'),equals('John'));
+        expect(model2.$toJson(),equals('{"id":3,"name":"John","species":"dog","age":null}'));
+        final model3 = SuperAnimal.$fromJson(model2.$toJson());
+        expect(model3.$get('name'),equals('John'));
       });
     });
   });

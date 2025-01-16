@@ -1,5 +1,4 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:super_model/macros/MappableSuperModel.dart';
 import 'package:super_model/super_model.dart';
 part 'SuperAnimal.mapper.dart';
 

@@ -10,7 +10,7 @@ void main() {
       test('accessible', () {
         final animal = AssociationAnimal(id: 2, name: 'Whiskers', species: 'Cat', age: 2);
         animal.owner = Person(id: 1, name: 'Fred');
-        expect(animal.owner.id,equals(1));
+        expect(animal.owner?.id, equals(1));
       });
     });
   });

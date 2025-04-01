@@ -127,6 +127,9 @@ class AssociationAnimalMapper extends ClassMapperBase<AssociationAnimal> {
   static int? _$age(AssociationAnimal v) => v.age;
   static const Field<AssociationAnimal, int> _f$age =
       Field('age', _$age, opt: true);
+  static Person? _$owner(AssociationAnimal v) => v.owner;
+  static const Field<AssociationAnimal, Person> _f$owner =
+      Field('owner', _$owner, mode: FieldMode.member);
 
   @override
   final MappableFields<AssociationAnimal> fields = const {
@@ -134,6 +137,7 @@ class AssociationAnimalMapper extends ClassMapperBase<AssociationAnimal> {
     #name: _f$name,
     #species: _f$species,
     #age: _f$age,
+    #owner: _f$owner,
   };
 
   static AssociationAnimal _instantiate(DecodingData data) {

@@ -1,0 +1,14 @@
+targets:
+  $default:
+    builders:
+      super_model|super_model_generators:
+        enabled: true
+
+builders:
+  super_model_generators:
+    import: "package:super_model/builder.dart"
+    builder_factories: ["superModelBuilder", "superModelIdBuilder", "mappableSuperModelBuilder", "belongsToBuilder"]
+    build_extensions: {".dart": [".super_model.g.part"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]

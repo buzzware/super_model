@@ -1,13 +1,13 @@
 part of './super_model.dart';
 
-// used during macro execution, before compilation, so runtime Types are not available
-class MacroMemberMeta {
+// Used during generation to store member metadata
+class MemberMeta {
   final String name;
   final String baseTypeString;
   late bool nullable;
   late String typeString;
 
-  MacroMemberMeta(this.name, this.baseTypeString, bool nullable) {
+  MemberMeta(this.name, this.baseTypeString, bool nullable) {
     var isDynamic = this.baseTypeString=='dynamic';
     this.nullable =  isDynamic ? true : nullable;
     typeString = baseTypeString + (this.nullable && !isDynamic ? '?' : '');

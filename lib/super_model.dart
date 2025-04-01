@@ -2,17 +2,15 @@ library super_model;
 
 import 'dart:async';
 import 'dart:convert';
-import 'package:macros/macros.dart';
 
-// somehow macros can't be made part of the library
-export 'macros/SuperModelId.dart';
-export 'macros/SuperModel.dart';
-export 'macros/MappableSuperModel.dart';
-export 'macros/BelongsTo.dart';
+// Export annotations that replace macros
+export 'annotations/super_model.dart';
+// Export utilities
+export 'utils.dart';
 
-part 'macros/macro_utils.dart';
+// Export models
 part 'SuperModelBase.dart';
 part 'PropertyMeta.dart';
-part 'MacroMemberMeta.dart';
+part 'MemberMeta.dart';
 part 'ModelClassMeta.dart';
 part 'ISuperModel.dart';

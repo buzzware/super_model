@@ -1,11 +1,13 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:super_model/super_model.dart';
 part 'AssociationAnimal.mapper.dart';
+part 'AssociationAnimal.g.dart';
 
+@SuperModel()
 @MappableSuperModel()
 @MappableClass()
-class Person with PersonMappable implements ISuperModel {
-  const Person({
+class Person extends SuperModelBase with PersonMappable, PersonSuperModelMixin, PersonMappableMixin {
+  Person({
     required this.id,
     required this.name
   });
@@ -13,13 +15,23 @@ class Person with PersonMappable implements ISuperModel {
   @SuperModelId()
   final int id;
   final String name;
+  
+  // Implementation of required method from SuperModelBase
+  @override
+  T getProperty<T>(String propertyName) {
+    switch (propertyName) {
+      case 'id': return id as T;
+      case 'name': return name as T;
+      default: throw Exception('Unknown property: $propertyName');
+    }
+  }
 }
 
 // an animal model using full dart_mappable generation and implementing ISuperModel using @MappableSuperModel() macro
 @MappableSuperModel()
-@BelongsTo('Person','owner')
+@SuperModel()
 @MappableClass()
-class AssociationAnimal with AssociationAnimalMappable implements ISuperModel {
+class AssociationAnimal extends SuperModelBase with AssociationAnimalMappable, AssociationAnimalSuperModelMixin, AssociationAnimalMappableMixin {
 
   AssociationAnimal({
     required this.id,
@@ -33,4 +45,20 @@ class AssociationAnimal with AssociationAnimalMappable implements ISuperModel {
   final String name;
   final String? species;
   final int? age;
+  
+  @BelongsTo(foreignKey: 'animalId')
+  Person? owner;
+  
+  // Implementation of required method from SuperModelBase
+  @override
+  T getProperty<T>(String propertyName) {
+    switch (propertyName) {
+      case 'id': return id as T;
+      case 'name': return name as T;
+      case 'species': return species as T;
+      case 'age': return age as T;
+      case 'owner': return owner as T;
+      default: throw Exception('Unknown property: $propertyName');
+    }
+  }
 }

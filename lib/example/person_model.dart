@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:super_model/super_model.dart';
 
+part 'person_model.mapper.dart';
 part 'person_model.g.dart'; // Generated code will be placed here
 
-// Use annotation instead of macro
 @SuperModel()
 class Person extends SuperModelBase with PersonSuperModelMixin {
   // Mark id field with SuperModelId annotation
@@ -34,13 +35,14 @@ class Person extends SuperModelBase with PersonSuperModelMixin {
   String? get email => _email;
 
   // Simple toMap implementation
-  Map<String, dynamic> toMap() => {'id': id, 'name': name, 'age': age, 'email': email};
+  //Map<String, dynamic> toMap() => {'id': id, 'name': name, 'age': age, 'email': email};
 }
 
 // Example of a model that integrates with mappable functionality
+@MappableClass()
 @SuperModel()
 @MappableSuperModel()
-class Employee extends SuperModelBase with EmployeeSuperModelMixin, EmployeeMappableMixin {
+class Employee extends SuperModelBase with EmployeeMappable, EmployeeSuperModelMixin, EmployeeMappableMixin {
   @SuperModelId()
   final int id;
 
@@ -56,11 +58,11 @@ class Employee extends SuperModelBase with EmployeeSuperModelMixin, EmployeeMapp
     required this.salary,
   });
 
-  // Simple toMap implementation
-  Map<String, dynamic> toMap() => {'id': id, 'name': name, 'position': position, 'salary': salary};
-
-  // Simple toJson implementation
-  String toJson() => jsonEncode(toMap());
+  // // Simple toMap implementation
+  // Map<String, dynamic> toMap() => {'id': id, 'name': name, 'position': position, 'salary': salary};
+  //
+  // // Simple toJson implementation
+  // String toJson() => jsonEncode(toMap());
 }
 
 // Example of using BelongsTo relationship

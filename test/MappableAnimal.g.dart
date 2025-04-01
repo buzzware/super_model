@@ -32,7 +32,7 @@ mixin MappableAnimalMappableMixin on SuperModelBase implements ISuperModel {
       MappableAnimalSuperModelGeneratedFields.$meta;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
-    final mergedMap = {...toMap(), ...map};
+    final mergedMap = {...(this as MappableAnimal).toMap(), ...map};
     return MappableAnimalMappableFields.fromMap(mergedMap) as M;
   }
 
@@ -45,11 +45,20 @@ mixin MappableAnimalMappableMixin on SuperModelBase implements ISuperModel {
 
   @override
   Map<String, dynamic> $toMap() {
-    return (this as MappableAnimal).toMap();
+    if (this is MappableAnimal) {
+      return (this as MappableAnimal).toMap();
+    }
+    throw UnimplementedError("toMap() not implemented in ${this.runtimeType}");
   }
 
   @override
-  String $toJson() => (this as MappableAnimal).toJson();
+  String $toJson() {
+    if (this is MappableAnimal) {
+      return (this as MappableAnimal).toJson();
+    }
+    throw UnimplementedError("toJson() not implemented in ${this.runtimeType}");
+  }
+
   dynamic operator [](String key) {
     final getter = MappableAnimalMappableFields._$getters[key];
     return getter == null ? null : getter(this as MappableAnimal);
@@ -58,8 +67,8 @@ mixin MappableAnimalMappableMixin on SuperModelBase implements ISuperModel {
   MappableAnimal $copyWith({
     int? id,
     String? name,
-    String species,
-    int age,
+    String? species,
+    int? age,
   }) {
     final self = this as MappableAnimal;
     return MappableAnimal(
@@ -83,10 +92,8 @@ extension MappableAnimalSuperModelGeneratedFields on MappableAnimal {
   static const String $name = "name";
   static const String $species = "species";
   static const String $age = "age";
-  static const ModelClassMeta $meta = ModelClassMeta(
-      MappableAnimal,
-      MappableAnimalSuperModelIdFields.idName,
-      MappableAnimalSuperModelIdFields.idType, {
+  static const ModelClassMeta $meta =
+      ModelClassMeta(MappableAnimal, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
     $species: const PropertyMeta($species, String, true, 'String', 'String?'),

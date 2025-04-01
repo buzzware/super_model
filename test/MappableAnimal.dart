@@ -42,6 +42,20 @@ class MappableAnimal extends SuperModelBase with MappableAnimalMappable, Mappabl
   }
 
   // Implement toMap and toJson methods needed by the mappable mixin
-  Map<String, dynamic> toMap() => MappableAnimalMapper.toMap(this);
-  String toJson() => MappableAnimalMapper.toJson(this);
+  Map<String, dynamic> toMap() => super.toMap();
+  String toJson() => super.toJson();
+
+  // Add static serialization methods needed for tests
+  static MappableAnimal fromJson(String json) => MappableAnimalMapper.fromJson(json);
+  static MappableAnimal fromMap(Map<String, dynamic> map) => MappableAnimalMapper.fromMap(map);
+  static MappableAnimal $fromJson(String json) => MappableAnimalMapper.fromJson(json);
+  static MappableAnimal $fromMap(Map<String, dynamic> map) => MappableAnimalMapper.fromMap(map);
+
+  // Add static meta for tests
+  static const ModelClassMeta $meta = ModelClassMeta(MappableAnimal, 'id', int, {
+    $id: PropertyMeta($id, int, false, 'int', 'int'),
+    $name: PropertyMeta($name, String, false, 'String', 'String'),
+    $species: PropertyMeta($species, String, true, 'String', 'String?'),
+    $age: PropertyMeta($age, int, true, 'int', 'int?'),
+  });
 }

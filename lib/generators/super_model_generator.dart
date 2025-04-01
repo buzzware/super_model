@@ -36,8 +36,21 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
       buffer.writeln('  static const String \$${field.name} = "${field.name}";');
     }
 
+    // Get the ID field information
+    FieldElement? idField;
+    for (var field in classElement.fields) {
+      if (field.metadata.any((meta) => meta.element?.name == 'SuperModelId')) {
+        idField = field;
+        break;
+      }
+    }
+    idField ??= fields.isNotEmpty ? fields.first : null;
+    
+    final idName = idField?.name ?? 'id';
+    final idType = idField != null ? _typeToString(idField.type) : 'int';
+
     // Generate meta information
-    buffer.writeln('  static const ModelClassMeta \$meta = ModelClassMeta($className, ${className}SuperModelIdFields.idName, ${className}SuperModelIdFields.idType, {');
+    buffer.writeln('  static const ModelClassMeta \$meta = ModelClassMeta($className, "$idName", $idType, {');
     for (final field in fields) {
       final typeString = _typeToString(field.type);
       final isNullable = field.type.toString().endsWith('?');
@@ -163,7 +176,7 @@ class MappableSuperModelGenerator extends GeneratorForAnnotation<MappableSuperMo
     
     buffer.writeln('  @override');
     buffer.writeln('  M \$copyWithMap<M>(Map<String, dynamic> map) {');
-    buffer.writeln('    final mergedMap = {...toMap(), ...map};');
+    buffer.writeln('    final mergedMap = {...(this as $className).toMap(), ...map};');
     buffer.writeln('    return ${className}MappableFields.fromMap(mergedMap) as M;');
     buffer.writeln('  }');
     
@@ -176,11 +189,19 @@ class MappableSuperModelGenerator extends GeneratorForAnnotation<MappableSuperMo
     
     buffer.writeln('  @override');
     buffer.writeln('  Map<String, dynamic> \$toMap() {');
-    buffer.writeln('    return (this as $className).toMap();');
+    buffer.writeln('    if (this is $className) {');
+    buffer.writeln('      return (this as $className).toMap();');
+    buffer.writeln('    }');    
+    buffer.writeln('    throw UnimplementedError("toMap() not implemented in \${this.runtimeType}");');
     buffer.writeln('  }');
     
     buffer.writeln('  @override');
-    buffer.writeln('  String \$toJson() => (this as $className).toJson();');
+    buffer.writeln('  String \$toJson() {');
+    buffer.writeln('    if (this is $className) {');
+    buffer.writeln('      return (this as $className).toJson();');
+    buffer.writeln('    }');    
+    buffer.writeln('    throw UnimplementedError("toJson() not implemented in \${this.runtimeType}");');
+    buffer.writeln('  }');
     
     buffer.writeln('  dynamic operator [](String key) {');
     buffer.writeln('    final getter = ${className}MappableFields._\$getters[key];');
@@ -189,16 +210,47 @@ class MappableSuperModelGenerator extends GeneratorForAnnotation<MappableSuperMo
     
     // CopyWith method
     buffer.writeln('  $className \$copyWith({');
-    for (final field in fields) {
-      final typeString = _typeToString(field.type);
-      final isNullable = field.type.toString().endsWith('?');
-      buffer.writeln('    ${isNullable ? typeString : typeString + '?'} ${field.name},');
+    
+    // Get the constructor parameters
+    ConstructorElement? constructor;
+    try {
+      constructor = classElement.constructors.firstWhere(
+        (c) => c.isGenerative && !c.name.startsWith('_'),
+      );
+    } catch (_) {
+      constructor = classElement.constructors.isNotEmpty ? classElement.constructors.first : null;
     }
+    
+    final paramMap = <String, ParameterElement>{};
+    if (constructor != null) {
+      for (var param in constructor.parameters) {
+        if (!param.name.startsWith('_')) {
+          paramMap[param.name] = param;
+        }
+      }
+    }
+    
+    // Generate parameter declarations for copyWith
+    // All parameters in copyWith are optional since they default to the current value
+    for (final field in fields) {
+      // Get the type with proper handling of nullability
+      final rawType = field.type.toString();
+      final isNullable = rawType.endsWith('?');
+      final typeString = isNullable ? rawType : '$rawType?';
+      
+      buffer.writeln('    $typeString ${field.name},');
+    }
+    
     buffer.writeln('  }) {');
     buffer.writeln('    final self = this as $className;');
     buffer.writeln('    return $className(');
+    
+    // Only include fields that are present in the constructor parameters
     for (final field in fields) {
-      buffer.writeln('      ${field.name}: ${field.name} ?? self.${field.name},');
+      final param = paramMap[field.name];
+      if (param != null) {
+        buffer.writeln('      ${field.name}: ${field.name} ?? self.${field.name},');
+      }
     }
     buffer.writeln('    );');
     buffer.writeln('  }');

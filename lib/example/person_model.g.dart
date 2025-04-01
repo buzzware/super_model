@@ -31,7 +31,7 @@ mixin EmployeeMappableMixin on SuperModelBase implements ISuperModel {
   ModelClassMeta get $classMeta => EmployeeSuperModelGeneratedFields.$meta;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
-    final mergedMap = {...toMap(), ...map};
+    final mergedMap = {...(this as Employee).toMap(), ...map};
     return EmployeeMappableFields.fromMap(mergedMap) as M;
   }
 
@@ -44,11 +44,20 @@ mixin EmployeeMappableMixin on SuperModelBase implements ISuperModel {
 
   @override
   Map<String, dynamic> $toMap() {
-    return (this as Employee).toMap();
+    if (this is Employee) {
+      return (this as Employee).toMap();
+    }
+    throw UnimplementedError("toMap() not implemented in ${this.runtimeType}");
   }
 
   @override
-  String $toJson() => (this as Employee).toJson();
+  String $toJson() {
+    if (this is Employee) {
+      return (this as Employee).toJson();
+    }
+    throw UnimplementedError("toJson() not implemented in ${this.runtimeType}");
+  }
+
   dynamic operator [](String key) {
     final getter = EmployeeMappableFields._$getters[key];
     return getter == null ? null : getter(this as Employee);
@@ -82,8 +91,7 @@ extension PersonSuperModelGeneratedFields on Person {
   static const String $name = "name";
   static const String $age = "age";
   static const String $email = "email";
-  static const ModelClassMeta $meta = ModelClassMeta(Person,
-      PersonSuperModelIdFields.idName, PersonSuperModelIdFields.idType, {
+  static const ModelClassMeta $meta = ModelClassMeta(Person, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
     $age: const PropertyMeta($age, int, false, 'int', 'int'),
@@ -118,8 +126,7 @@ extension EmployeeSuperModelGeneratedFields on Employee {
   static const String $name = "name";
   static const String $position = "position";
   static const String $salary = "salary";
-  static const ModelClassMeta $meta = ModelClassMeta(Employee,
-      EmployeeSuperModelIdFields.idName, EmployeeSuperModelIdFields.idType, {
+  static const ModelClassMeta $meta = ModelClassMeta(Employee, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
     $position: const PropertyMeta($position, String, false, 'String', 'String'),
@@ -153,10 +160,7 @@ extension DepartmentSuperModelGeneratedFields on Department {
   static const String $id = "id";
   static const String $name = "name";
   static const String $employees = "employees";
-  static const ModelClassMeta $meta = ModelClassMeta(
-      Department,
-      DepartmentSuperModelIdFields.idName,
-      DepartmentSuperModelIdFields.idType, {
+  static const ModelClassMeta $meta = ModelClassMeta(Department, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
     $employees: const PropertyMeta($employees, List, false, 'List', 'List'),

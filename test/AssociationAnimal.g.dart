@@ -27,7 +27,7 @@ mixin PersonMappableMixin on SuperModelBase implements ISuperModel {
   ModelClassMeta get $classMeta => PersonSuperModelGeneratedFields.$meta;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
-    final mergedMap = {...toMap(), ...map};
+    final mergedMap = {...(this as Person).toMap(), ...map};
     return PersonMappableFields.fromMap(mergedMap) as M;
   }
 
@@ -40,11 +40,20 @@ mixin PersonMappableMixin on SuperModelBase implements ISuperModel {
 
   @override
   Map<String, dynamic> $toMap() {
-    return (this as Person).toMap();
+    if (this is Person) {
+      return (this as Person).toMap();
+    }
+    throw UnimplementedError("toMap() not implemented in ${this.runtimeType}");
   }
 
   @override
-  String $toJson() => (this as Person).toJson();
+  String $toJson() {
+    if (this is Person) {
+      return (this as Person).toJson();
+    }
+    throw UnimplementedError("toJson() not implemented in ${this.runtimeType}");
+  }
+
   dynamic operator [](String key) {
     final getter = PersonMappableFields._$getters[key];
     return getter == null ? null : getter(this as Person);
@@ -90,7 +99,7 @@ mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
       AssociationAnimalSuperModelGeneratedFields.$meta;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
-    final mergedMap = {...toMap(), ...map};
+    final mergedMap = {...(this as AssociationAnimal).toMap(), ...map};
     return AssociationAnimalMappableFields.fromMap(mergedMap) as M;
   }
 
@@ -103,11 +112,20 @@ mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
 
   @override
   Map<String, dynamic> $toMap() {
-    return (this as AssociationAnimal).toMap();
+    if (this is AssociationAnimal) {
+      return (this as AssociationAnimal).toMap();
+    }
+    throw UnimplementedError("toMap() not implemented in ${this.runtimeType}");
   }
 
   @override
-  String $toJson() => (this as AssociationAnimal).toJson();
+  String $toJson() {
+    if (this is AssociationAnimal) {
+      return (this as AssociationAnimal).toJson();
+    }
+    throw UnimplementedError("toJson() not implemented in ${this.runtimeType}");
+  }
+
   dynamic operator [](String key) {
     final getter = AssociationAnimalMappableFields._$getters[key];
     return getter == null ? null : getter(this as AssociationAnimal);
@@ -116,9 +134,9 @@ mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
   AssociationAnimal $copyWith({
     int? id,
     String? name,
-    String species,
-    int age,
-    Person owner,
+    String? species,
+    int? age,
+    Person? owner,
   }) {
     final self = this as AssociationAnimal;
     return AssociationAnimal(
@@ -126,7 +144,6 @@ mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
       name: name ?? self.name,
       species: species ?? self.species,
       age: age ?? self.age,
-      owner: owner ?? self.owner,
     );
   }
 }
@@ -141,8 +158,7 @@ mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
 extension PersonSuperModelGeneratedFields on Person {
   static const String $id = "id";
   static const String $name = "name";
-  static const ModelClassMeta $meta = ModelClassMeta(Person,
-      PersonSuperModelIdFields.idName, PersonSuperModelIdFields.idType, {
+  static const ModelClassMeta $meta = ModelClassMeta(Person, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
   });
@@ -172,10 +188,8 @@ extension AssociationAnimalSuperModelGeneratedFields on AssociationAnimal {
   static const String $species = "species";
   static const String $age = "age";
   static const String $owner = "owner";
-  static const ModelClassMeta $meta = ModelClassMeta(
-      AssociationAnimal,
-      AssociationAnimalSuperModelIdFields.idName,
-      AssociationAnimalSuperModelIdFields.idType, {
+  static const ModelClassMeta $meta =
+      ModelClassMeta(AssociationAnimal, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
     $species: const PropertyMeta($species, String, true, 'String', 'String?'),

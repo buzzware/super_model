@@ -11,7 +11,7 @@ const undefined = Object();
 @MappableClass()
 class MappableAnimal extends SuperModelBase with MappableAnimalMappable, MappableAnimalSuperModelMixin, MappableAnimalMappableMixin {
 
-  const MappableAnimal({
+  MappableAnimal({
     required this.id,
     required this.name,
     this.species,
@@ -28,7 +28,7 @@ class MappableAnimal extends SuperModelBase with MappableAnimalMappable, Mappabl
   final String name;
   final String? species;
   final int? age;
-  
+
   // Implementation of required method from SuperModelBase
   @override
   T getProperty<T>(String propertyName) {
@@ -40,7 +40,7 @@ class MappableAnimal extends SuperModelBase with MappableAnimalMappable, Mappabl
       default: throw Exception('Unknown property: $propertyName');
     }
   }
-  
+
   // Implement toMap and toJson methods needed by the mappable mixin
   Map<String, dynamic> toMap() => MappableAnimalMapper.toMap(this);
   String toJson() => MappableAnimalMapper.toJson(this);

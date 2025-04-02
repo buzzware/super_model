@@ -103,8 +103,8 @@ void main() {
         expect(animal.$get<String>(SuperAnimalMeta.$name),equals("Fred"));
         expect(animal[SuperAnimalMeta.$name],equals("Fred"));
 
-        expect(animal.$get<int>(SuperAnimal.$info.idName!),equals(3));
-        expect(animal.$get<num>(SuperAnimal.$info.idName!),equals(3));
+        expect(animal.$get<int>(SuperAnimalMeta.$info.idName!),equals(3));
+        expect(animal.$get<num>(SuperAnimalMeta.$info.idName!),equals(3));
         expect(animal[SuperAnimalMeta.$id],equals(3));
 
         expect(animal.$classInfo.fields.keys.toList(),equals(['id','name','species','age']));
@@ -113,14 +113,14 @@ void main() {
 
         expect(SuperAnimalMeta.$id, equals('id'));
         expect(SuperAnimalMeta.$name, equals('name'));
-        expect(SuperAnimal.$info.fields[SuperAnimalMeta.$id]!.nullable,isFalse);
-        expect(SuperAnimal.$info.fields[SuperAnimalMeta.$id]!.type,equals(int));
+        expect(SuperAnimalMeta.$info.fields[SuperAnimalMeta.$id]!.nullable,isFalse);
+        expect(SuperAnimalMeta.$info.fields[SuperAnimalMeta.$id]!.type,equals(int));
 
-        expect(SuperAnimal.$info.idName,equals('id'));
-        expect(SuperAnimal.$info.idType,equals(int));
+        expect(SuperAnimalMeta.$info.idName,equals('id'));
+        expect(SuperAnimalMeta.$info.idType,equals(int));
 
-        expect(SuperAnimal.$info.fields[SuperAnimalMeta.$name]!.nullable,isFalse);
-        expect(SuperAnimal.$info.fields[SuperAnimalMeta.$name]!.type,equals(String));
+        expect(SuperAnimalMeta.$info.fields[SuperAnimalMeta.$name]!.nullable,isFalse);
+        expect(SuperAnimalMeta.$info.fields[SuperAnimalMeta.$name]!.type,equals(String));
       });
 
       test('copyWith', () {

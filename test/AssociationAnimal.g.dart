@@ -149,4 +149,10 @@ mixin AssociationAnimalMeta on SuperModelBase implements ISuperModel {
       person_id: person_id ?? self.person_id,
     );
   }
+
+  Person? _person;
+  Person? get person => _person;
+  set person(Person? value) {
+    _person = value;
+  }
 }

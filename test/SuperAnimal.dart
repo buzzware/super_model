@@ -21,6 +21,4 @@ class SuperAnimal extends SuperModelBase with SuperAnimalMappable, SuperAnimalMe
   final String name;
   final String? species;
   final int? age;
-
-  static SuperModelInfo $info = SuperAnimalMeta.$info;
 }

@@ -101,17 +101,17 @@ extension PersonSuperModelGeneratedFields on Person {
 
 mixin PersonMeta on SuperModelBase {
   @override
-  Map<String, dynamic Function()> get $getters => {
-        "id": () => (this as Person).id,
-        "name": () => (this as Person).name,
-        "age": () => (this as Person).age,
-        "email": () => (this as Person).email
+  Map<String, dynamic Function(SuperModelBase)> get $getters => {
+        "id": (o) => (o as Person).id,
+        "name": (o) => (o as Person).name,
+        "age": (o) => (o as Person).age,
+        "email": (o) => (o as Person).email
       };
   @override
   dynamic operator [](String key) {
     var getter = $getters[key];
     if (getter == null) return null;
-    return getter();
+    return getter(this);
   }
 
   @override
@@ -136,17 +136,17 @@ extension EmployeeSuperModelGeneratedFields on Employee {
 
 mixin EmployeeMeta on SuperModelBase {
   @override
-  Map<String, dynamic Function()> get $getters => {
-        "id": () => (this as Employee).id,
-        "name": () => (this as Employee).name,
-        "position": () => (this as Employee).position,
-        "salary": () => (this as Employee).salary
+  Map<String, dynamic Function(SuperModelBase)> get $getters => {
+        "id": (o) => (o as Employee).id,
+        "name": (o) => (o as Employee).name,
+        "position": (o) => (o as Employee).position,
+        "salary": (o) => (o as Employee).salary
       };
   @override
   dynamic operator [](String key) {
     var getter = $getters[key];
     if (getter == null) return null;
-    return getter();
+    return getter(this);
   }
 
   @override
@@ -169,16 +169,16 @@ extension DepartmentSuperModelGeneratedFields on Department {
 
 mixin DepartmentMeta on SuperModelBase {
   @override
-  Map<String, dynamic Function()> get $getters => {
-        "id": () => (this as Department).id,
-        "name": () => (this as Department).name,
-        "employees": () => (this as Department).employees
+  Map<String, dynamic Function(SuperModelBase)> get $getters => {
+        "id": (o) => (o as Department).id,
+        "name": (o) => (o as Department).name,
+        "employees": (o) => (o as Department).employees
       };
   @override
   dynamic operator [](String key) {
     var getter = $getters[key];
     if (getter == null) return null;
-    return getter();
+    return getter(this);
   }
 
   @override

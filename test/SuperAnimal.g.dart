@@ -101,17 +101,17 @@ extension SuperAnimalSuperModelGeneratedFields on SuperAnimal {
 
 mixin SuperAnimalMeta on SuperModelBase {
   @override
-  Map<String, dynamic Function()> get $getters => {
-        "id": () => (this as SuperAnimal).id,
-        "name": () => (this as SuperAnimal).name,
-        "species": () => (this as SuperAnimal).species,
-        "age": () => (this as SuperAnimal).age
+  Map<String, dynamic Function(SuperModelBase)> get $getters => {
+        "id": (o) => (o as SuperAnimal).id,
+        "name": (o) => (o as SuperAnimal).name,
+        "species": (o) => (o as SuperAnimal).species,
+        "age": (o) => (o as SuperAnimal).age
       };
   @override
   dynamic operator [](String key) {
     var getter = $getters[key];
     if (getter == null) return null;
-    return getter();
+    return getter(this);
   }
 
   @override

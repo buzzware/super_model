@@ -166,13 +166,13 @@ extension PersonSuperModelGeneratedFields on Person {
 
 mixin PersonMeta on SuperModelBase {
   @override
-  Map<String, dynamic Function()> get $getters =>
-      {"id": () => (this as Person).id, "name": () => (this as Person).name};
+  Map<String, dynamic Function(SuperModelBase)> get $getters =>
+      {"id": (o) => (o as Person).id, "name": (o) => (o as Person).name};
   @override
   dynamic operator [](String key) {
     var getter = $getters[key];
     if (getter == null) return null;
-    return getter();
+    return getter(this);
   }
 
   @override
@@ -200,18 +200,18 @@ extension AssociationAnimalSuperModelGeneratedFields on AssociationAnimal {
 
 mixin AssociationAnimalMeta on SuperModelBase {
   @override
-  Map<String, dynamic Function()> get $getters => {
-        "id": () => (this as AssociationAnimal).id,
-        "name": () => (this as AssociationAnimal).name,
-        "species": () => (this as AssociationAnimal).species,
-        "age": () => (this as AssociationAnimal).age,
-        "owner": () => (this as AssociationAnimal).owner
+  Map<String, dynamic Function(SuperModelBase)> get $getters => {
+        "id": (o) => (o as AssociationAnimal).id,
+        "name": (o) => (o as AssociationAnimal).name,
+        "species": (o) => (o as AssociationAnimal).species,
+        "age": (o) => (o as AssociationAnimal).age,
+        "owner": (o) => (o as AssociationAnimal).owner
       };
   @override
   dynamic operator [](String key) {
     var getter = $getters[key];
     if (getter == null) return null;
-    return getter();
+    return getter(this);
   }
 
   @override

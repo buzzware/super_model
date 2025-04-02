@@ -9,6 +9,73 @@ part of 'person_model.dart';
 // **************************************************************************
 // MappableSuperModelGenerator
 // **************************************************************************
+class PersonMappableFields {
+  static const String $id = 'id';
+  static const String $name = 'name';
+  static const String $age = 'age';
+  static const String $email = 'email';
+  static const fromJson = PersonMapper.fromJson;
+  static const fromMap = PersonMapper.fromMap;
+  static const $fromJson = PersonMapper.fromJson;
+  static const $fromMap = PersonMapper.fromMap;
+}
+
+mixin PersonMappableMixin on SuperModelBase implements ISuperModel {
+  @override
+  ModelClassMeta get $classMeta => PersonSuperModelGeneratedFields.$meta;
+  @override
+  M $copyWithMap<M>(Map<String, dynamic> map) {
+    final mergedMap = {...(this as Person).toMap(), ...map};
+    return PersonMappableFields.fromMap(mergedMap) as M;
+  }
+
+  @override
+  T? $get<T>(String key, [T? defaultValue]) {
+    final property = $classMeta.fields[key];
+    if (property == null) return defaultValue;
+    return property.getValue(this) as T?;
+  }
+
+  @override
+  Map<String, dynamic> $toMap() {
+    if (this is Person) {
+      return (this as Person).toMap();
+    }
+    throw UnimplementedError("toMap() not implemented in ${this.runtimeType}");
+  }
+
+  @override
+  String $toJson() {
+    if (this is Person) {
+      return (this as Person).toJson();
+    }
+    throw UnimplementedError("toJson() not implemented in ${this.runtimeType}");
+  }
+
+  dynamic operator [](String key) {
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
+  }
+
+  Person $copyWith({
+    int? id,
+    String? name,
+    int? age,
+    String? email,
+  }) {
+    final self = this as Person;
+    return Person(
+      id: id ?? self.id,
+      name: name ?? self.name,
+      age: age ?? self.age,
+      email: email ?? self.email,
+    );
+  }
+}
+
+// **************************************************************************
+// MappableSuperModelGenerator
+// **************************************************************************
 class EmployeeMappableFields {
   static const String $id = 'id';
   static const String $name = 'name';
@@ -69,6 +136,70 @@ mixin EmployeeMappableMixin on SuperModelBase implements ISuperModel {
       name: name ?? self.name,
       position: position ?? self.position,
       salary: salary ?? self.salary,
+    );
+  }
+}
+
+// **************************************************************************
+// MappableSuperModelGenerator
+// **************************************************************************
+class DepartmentMappableFields {
+  static const String $id = 'id';
+  static const String $name = 'name';
+  static const String $employees = 'employees';
+  static const fromJson = DepartmentMapper.fromJson;
+  static const fromMap = DepartmentMapper.fromMap;
+  static const $fromJson = DepartmentMapper.fromJson;
+  static const $fromMap = DepartmentMapper.fromMap;
+}
+
+mixin DepartmentMappableMixin on SuperModelBase implements ISuperModel {
+  @override
+  ModelClassMeta get $classMeta => DepartmentSuperModelGeneratedFields.$meta;
+  @override
+  M $copyWithMap<M>(Map<String, dynamic> map) {
+    final mergedMap = {...(this as Department).toMap(), ...map};
+    return DepartmentMappableFields.fromMap(mergedMap) as M;
+  }
+
+  @override
+  T? $get<T>(String key, [T? defaultValue]) {
+    final property = $classMeta.fields[key];
+    if (property == null) return defaultValue;
+    return property.getValue(this) as T?;
+  }
+
+  @override
+  Map<String, dynamic> $toMap() {
+    if (this is Department) {
+      return (this as Department).toMap();
+    }
+    throw UnimplementedError("toMap() not implemented in ${this.runtimeType}");
+  }
+
+  @override
+  String $toJson() {
+    if (this is Department) {
+      return (this as Department).toJson();
+    }
+    throw UnimplementedError("toJson() not implemented in ${this.runtimeType}");
+  }
+
+  dynamic operator [](String key) {
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
+  }
+
+  Department $copyWith({
+    int? id,
+    String? name,
+    List<Employee>? employees,
+  }) {
+    final self = this as Department;
+    return Department(
+      id: id ?? self.id,
+      name: name ?? self.name,
+      employees: employees ?? self.employees,
     );
   }
 }

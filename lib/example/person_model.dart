@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:super_model/super_model.dart';
 
@@ -7,7 +5,9 @@ part 'person_model.mapper.dart';
 part 'person_model.g.dart'; // Generated code will be placed here
 
 @SuperModel()
-class Person extends SuperModelBase with PersonMeta {
+@MappableSuperModel()
+@MappableClass()
+class Person extends SuperModelBase with PersonMappable, PersonMeta {
   // Mark id field with SuperModelId annotation
   @SuperModelId()
   final int _id;
@@ -38,9 +38,9 @@ class Person extends SuperModelBase with PersonMeta {
 }
 
 // Example of a model that integrates with mappable functionality
-@MappableClass()
 @SuperModel()
 @MappableSuperModel()
+@MappableClass()
 class Employee extends SuperModelBase with EmployeeMappable, EmployeeMeta, EmployeeMappableMixin {
   @SuperModelId()
   final int id;
@@ -64,9 +64,10 @@ class Employee extends SuperModelBase with EmployeeMappable, EmployeeMeta, Emplo
   // String toJson() => jsonEncode(toMap());
 }
 
-// Example of using BelongsTo relationship
 @SuperModel()
-class Department extends SuperModelBase with DepartmentMeta {
+@MappableSuperModel()
+@MappableClass()
+class Department extends SuperModelBase with EmployeeMappable, DepartmentMeta {
   @SuperModelId()
   final int id;
 
@@ -87,7 +88,4 @@ class Department extends SuperModelBase with DepartmentMeta {
     'name': name,
     'employees': employees.map((e) => e.toMap()).toList(),
   };
-
-  // Simple toJson implementation
-  String toJson() => jsonEncode(toMap());
 }

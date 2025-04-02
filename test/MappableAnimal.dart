@@ -6,9 +6,9 @@ const undefined = Object();
 
 // an animal model using full dart_mappable generation and implementing ISuperModel etc without @SuperModel macro
 @MappableClass()
-class MappableAnimal with MappableAnimalMappable implements ISuperModel {
+class MappableAnimal extends SuperModelBase with MappableAnimalMappable implements ISuperModel {
 
-  const MappableAnimal({
+  MappableAnimal({
     required this.id,
     required this.name,
     this.species,
@@ -20,24 +20,17 @@ class MappableAnimal with MappableAnimalMappable implements ISuperModel {
   static const String $species = 'species';
   static const String $age = 'age';
 
-  static const ModelClassMeta $meta = const ModelClassMeta(MappableAnimal, null, MappableAnimal.$id,int, {
-    $id: const PropertyMeta($id, int, false, 'int', 'int'),
-    $name: const PropertyMeta($name, String, false, 'String', 'String'),
-    $species: const PropertyMeta($species, String, true, 'String', 'String?'),
-    $age: const PropertyMeta($age, int, true, 'int', 'int?'),
+  static ModelClassMeta $meta = ModelClassMeta(MappableAnimal, null, MappableAnimal.$id,int, {
+    $id: PropertyMeta($id, int, false, 'int', 'int', (o) => (o as MappableAnimal).id),
+    $name: PropertyMeta($name, String, false, 'String', 'String', (o) => (o as MappableAnimal).name),
+    $species: PropertyMeta($species, String, true, 'String', 'String?', (o) => (o as MappableAnimal).species),
+    $age: PropertyMeta($age, int, true, 'int', 'int?', (o) => (o as MappableAnimal).age),
   });
 
   static const fromJson = MappableAnimalMapper.fromJson;
   static const fromMap = MappableAnimalMapper.fromMap;
   static const $fromJson = MappableAnimalMapper.fromJson;
   static const $fromMap =  MappableAnimalMapper.fromMap;
-
-  static Map<String, dynamic Function(MappableAnimal)> _$getters = {
-    $id: (MappableAnimal o) => o.id,
-    $name: (MappableAnimal o) => o.name,
-    $species: (MappableAnimal o) => o.species,
-    $age: (MappableAnimal o) => o.age
-  };
 
   @SuperModelId()
   final int id;
@@ -57,11 +50,9 @@ class MappableAnimal with MappableAnimalMappable implements ISuperModel {
 
   @override
   T? $get<T>(String key, [T? defaultValue = null]) {
-    var getter = _$getters[key];
-    if (getter==null) {
-      return defaultValue;
-    }
-    return getter(this) as T?;
+    final property = $classMeta.fields[key];
+    if (property == null) return defaultValue;
+    return property.getValue(this) as T?;
   }
 
   @override
@@ -76,10 +67,8 @@ class MappableAnimal with MappableAnimalMappable implements ISuperModel {
 
   // for macro but not required in ISuperModel
   dynamic operator[](String key) {
-    var getter = _$getters[key];
-    if (getter==null)
-      return null;
-    return getter!(this);
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
   }
 
   // for macro can't be part of ISuperModel

@@ -18,12 +18,6 @@ class EmployeeMappableFields {
   static const fromMap = EmployeeMapper.fromMap;
   static const $fromJson = EmployeeMapper.fromJson;
   static const $fromMap = EmployeeMapper.fromMap;
-  static Map<String, dynamic Function(Employee)> _$getters = {
-    $id: (Employee o) => o.id,
-    $name: (Employee o) => o.name,
-    $position: (Employee o) => o.position,
-    $salary: (Employee o) => o.salary,
-  };
 }
 
 mixin EmployeeMappableMixin on SuperModelBase implements ISuperModel {
@@ -37,9 +31,9 @@ mixin EmployeeMappableMixin on SuperModelBase implements ISuperModel {
 
   @override
   T? $get<T>(String key, [T? defaultValue]) {
-    final getter = EmployeeMappableFields._$getters[key];
-    if (getter == null) return defaultValue;
-    return getter(this as Employee) as T?;
+    final property = $classMeta.fields[key];
+    if (property == null) return defaultValue;
+    return property.getValue(this) as T?;
   }
 
   @override
@@ -59,8 +53,8 @@ mixin EmployeeMappableMixin on SuperModelBase implements ISuperModel {
   }
 
   dynamic operator [](String key) {
-    final getter = EmployeeMappableFields._$getters[key];
-    return getter == null ? null : getter(this as Employee);
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
   }
 
   Employee $copyWith({
@@ -91,27 +85,22 @@ extension PersonSuperModelGeneratedFields on Person {
   static const String $name = "name";
   static const String $age = "age";
   static const String $email = "email";
-  static const ModelClassMeta $meta = ModelClassMeta(Person, null, "id", int, {
-    $id: const PropertyMeta($id, int, false, 'int', 'int'),
-    $name: const PropertyMeta($name, String, false, 'String', 'String'),
-    $age: const PropertyMeta($age, int, false, 'int', 'int'),
-    $email: const PropertyMeta($email, String, true, 'String', 'String?'),
+  static ModelClassMeta $meta = ModelClassMeta(Person, null, "id", int, {
+    $id: PropertyMeta($id, int, false, 'int', 'int', (o) => (o as Person).id),
+    $name: PropertyMeta(
+        $name, String, false, 'String', 'String', (o) => (o as Person).name),
+    $age:
+        PropertyMeta($age, int, false, 'int', 'int', (o) => (o as Person).age),
+    $email: PropertyMeta(
+        $email, String, true, 'String', 'String?', (o) => (o as Person).email),
   });
 }
 
 mixin PersonMeta on SuperModelBase {
   @override
-  Map<String, dynamic Function(SuperModelBase)> get $getters => {
-        "id": (o) => (o as Person).id,
-        "name": (o) => (o as Person).name,
-        "age": (o) => (o as Person).age,
-        "email": (o) => (o as Person).email
-      };
-  @override
   dynamic operator [](String key) {
-    var getter = $getters[key];
-    if (getter == null) return null;
-    return getter(this);
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
   }
 
   @override
@@ -126,28 +115,22 @@ extension EmployeeSuperModelGeneratedFields on Employee {
   static const String $name = "name";
   static const String $position = "position";
   static const String $salary = "salary";
-  static const ModelClassMeta $meta =
-      ModelClassMeta(Employee, null, "id", int, {
-    $id: const PropertyMeta($id, int, false, 'int', 'int'),
-    $name: const PropertyMeta($name, String, false, 'String', 'String'),
-    $position: const PropertyMeta($position, String, false, 'String', 'String'),
-    $salary: const PropertyMeta($salary, double, false, 'double', 'double'),
+  static ModelClassMeta $meta = ModelClassMeta(Employee, null, "id", int, {
+    $id: PropertyMeta($id, int, false, 'int', 'int', (o) => (o as Employee).id),
+    $name: PropertyMeta(
+        $name, String, false, 'String', 'String', (o) => (o as Employee).name),
+    $position: PropertyMeta($position, String, false, 'String', 'String',
+        (o) => (o as Employee).position),
+    $salary: PropertyMeta($salary, double, false, 'double', 'double',
+        (o) => (o as Employee).salary),
   });
 }
 
 mixin EmployeeMeta on SuperModelBase {
   @override
-  Map<String, dynamic Function(SuperModelBase)> get $getters => {
-        "id": (o) => (o as Employee).id,
-        "name": (o) => (o as Employee).name,
-        "position": (o) => (o as Employee).position,
-        "salary": (o) => (o as Employee).salary
-      };
-  @override
   dynamic operator [](String key) {
-    var getter = $getters[key];
-    if (getter == null) return null;
-    return getter(this);
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
   }
 
   @override
@@ -161,26 +144,21 @@ extension DepartmentSuperModelGeneratedFields on Department {
   static const String $id = "id";
   static const String $name = "name";
   static const String $employees = "employees";
-  static const ModelClassMeta $meta =
-      ModelClassMeta(Department, null, "id", int, {
-    $id: const PropertyMeta($id, int, false, 'int', 'int'),
-    $name: const PropertyMeta($name, String, false, 'String', 'String'),
-    $employees: const PropertyMeta($employees, List, false, 'List', 'List'),
+  static ModelClassMeta $meta = ModelClassMeta(Department, null, "id", int, {
+    $id: PropertyMeta(
+        $id, int, false, 'int', 'int', (o) => (o as Department).id),
+    $name: PropertyMeta($name, String, false, 'String', 'String',
+        (o) => (o as Department).name),
+    $employees: PropertyMeta($employees, List, false, 'List', 'List',
+        (o) => (o as Department).employees),
   });
 }
 
 mixin DepartmentMeta on SuperModelBase {
   @override
-  Map<String, dynamic Function(SuperModelBase)> get $getters => {
-        "id": (o) => (o as Department).id,
-        "name": (o) => (o as Department).name,
-        "employees": (o) => (o as Department).employees
-      };
-  @override
   dynamic operator [](String key) {
-    var getter = $getters[key];
-    if (getter == null) return null;
-    return getter(this);
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
   }
 
   @override

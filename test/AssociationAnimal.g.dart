@@ -16,10 +16,6 @@ class PersonMappableFields {
   static const fromMap = PersonMapper.fromMap;
   static const $fromJson = PersonMapper.fromJson;
   static const $fromMap = PersonMapper.fromMap;
-  static Map<String, dynamic Function(Person)> _$getters = {
-    $id: (Person o) => o.id,
-    $name: (Person o) => o.name,
-  };
 }
 
 mixin PersonMappableMixin on SuperModelBase implements ISuperModel {
@@ -33,9 +29,9 @@ mixin PersonMappableMixin on SuperModelBase implements ISuperModel {
 
   @override
   T? $get<T>(String key, [T? defaultValue]) {
-    final getter = PersonMappableFields._$getters[key];
-    if (getter == null) return defaultValue;
-    return getter(this as Person) as T?;
+    final property = $classMeta.fields[key];
+    if (property == null) return defaultValue;
+    return property.getValue(this) as T?;
   }
 
   @override
@@ -55,8 +51,8 @@ mixin PersonMappableMixin on SuperModelBase implements ISuperModel {
   }
 
   dynamic operator [](String key) {
-    final getter = PersonMappableFields._$getters[key];
-    return getter == null ? null : getter(this as Person);
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
   }
 
   Person $copyWith({
@@ -84,13 +80,6 @@ class AssociationAnimalMappableFields {
   static const fromMap = AssociationAnimalMapper.fromMap;
   static const $fromJson = AssociationAnimalMapper.fromJson;
   static const $fromMap = AssociationAnimalMapper.fromMap;
-  static Map<String, dynamic Function(AssociationAnimal)> _$getters = {
-    $id: (AssociationAnimal o) => o.id,
-    $name: (AssociationAnimal o) => o.name,
-    $species: (AssociationAnimal o) => o.species,
-    $age: (AssociationAnimal o) => o.age,
-    $owner: (AssociationAnimal o) => o.owner,
-  };
 }
 
 mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
@@ -105,9 +94,9 @@ mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
 
   @override
   T? $get<T>(String key, [T? defaultValue]) {
-    final getter = AssociationAnimalMappableFields._$getters[key];
-    if (getter == null) return defaultValue;
-    return getter(this as AssociationAnimal) as T?;
+    final property = $classMeta.fields[key];
+    if (property == null) return defaultValue;
+    return property.getValue(this) as T?;
   }
 
   @override
@@ -127,8 +116,8 @@ mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
   }
 
   dynamic operator [](String key) {
-    final getter = AssociationAnimalMappableFields._$getters[key];
-    return getter == null ? null : getter(this as AssociationAnimal);
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
   }
 
   AssociationAnimal $copyWith({
@@ -158,21 +147,18 @@ mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
 extension PersonSuperModelGeneratedFields on Person {
   static const String $id = "id";
   static const String $name = "name";
-  static const ModelClassMeta $meta = ModelClassMeta(Person, null, "id", int, {
-    $id: const PropertyMeta($id, int, false, 'int', 'int'),
-    $name: const PropertyMeta($name, String, false, 'String', 'String'),
+  static ModelClassMeta $meta = ModelClassMeta(Person, null, "id", int, {
+    $id: PropertyMeta($id, int, false, 'int', 'int', (o) => (o as Person).id),
+    $name: PropertyMeta(
+        $name, String, false, 'String', 'String', (o) => (o as Person).name),
   });
 }
 
 mixin PersonMeta on SuperModelBase {
   @override
-  Map<String, dynamic Function(SuperModelBase)> get $getters =>
-      {"id": (o) => (o as Person).id, "name": (o) => (o as Person).name};
-  @override
   dynamic operator [](String key) {
-    var getter = $getters[key];
-    if (getter == null) return null;
-    return getter(this);
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
   }
 
   @override
@@ -188,30 +174,26 @@ extension AssociationAnimalSuperModelGeneratedFields on AssociationAnimal {
   static const String $species = "species";
   static const String $age = "age";
   static const String $owner = "owner";
-  static const ModelClassMeta $meta =
+  static ModelClassMeta $meta =
       ModelClassMeta(AssociationAnimal, null, "id", int, {
-    $id: const PropertyMeta($id, int, false, 'int', 'int'),
-    $name: const PropertyMeta($name, String, false, 'String', 'String'),
-    $species: const PropertyMeta($species, String, true, 'String', 'String?'),
-    $age: const PropertyMeta($age, int, true, 'int', 'int?'),
-    $owner: const PropertyMeta($owner, Person, true, 'Person', 'Person?'),
+    $id: PropertyMeta(
+        $id, int, false, 'int', 'int', (o) => (o as AssociationAnimal).id),
+    $name: PropertyMeta($name, String, false, 'String', 'String',
+        (o) => (o as AssociationAnimal).name),
+    $species: PropertyMeta($species, String, true, 'String', 'String?',
+        (o) => (o as AssociationAnimal).species),
+    $age: PropertyMeta(
+        $age, int, true, 'int', 'int?', (o) => (o as AssociationAnimal).age),
+    $owner: PropertyMeta($owner, Person, true, 'Person', 'Person?',
+        (o) => (o as AssociationAnimal).owner),
   });
 }
 
 mixin AssociationAnimalMeta on SuperModelBase {
   @override
-  Map<String, dynamic Function(SuperModelBase)> get $getters => {
-        "id": (o) => (o as AssociationAnimal).id,
-        "name": (o) => (o as AssociationAnimal).name,
-        "species": (o) => (o as AssociationAnimal).species,
-        "age": (o) => (o as AssociationAnimal).age,
-        "owner": (o) => (o as AssociationAnimal).owner
-      };
-  @override
   dynamic operator [](String key) {
-    var getter = $getters[key];
-    if (getter == null) return null;
-    return getter(this);
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
   }
 
   @override

@@ -18,12 +18,6 @@ class SuperAnimalMappableFields {
   static const fromMap = SuperAnimalMapper.fromMap;
   static const $fromJson = SuperAnimalMapper.fromJson;
   static const $fromMap = SuperAnimalMapper.fromMap;
-  static Map<String, dynamic Function(SuperAnimal)> _$getters = {
-    $id: (SuperAnimal o) => o.id,
-    $name: (SuperAnimal o) => o.name,
-    $species: (SuperAnimal o) => o.species,
-    $age: (SuperAnimal o) => o.age,
-  };
 }
 
 mixin SuperAnimalMappableMixin on SuperModelBase implements ISuperModel {
@@ -37,9 +31,9 @@ mixin SuperAnimalMappableMixin on SuperModelBase implements ISuperModel {
 
   @override
   T? $get<T>(String key, [T? defaultValue]) {
-    final getter = SuperAnimalMappableFields._$getters[key];
-    if (getter == null) return defaultValue;
-    return getter(this as SuperAnimal) as T?;
+    final property = $classMeta.fields[key];
+    if (property == null) return defaultValue;
+    return property.getValue(this) as T?;
   }
 
   @override
@@ -59,8 +53,8 @@ mixin SuperAnimalMappableMixin on SuperModelBase implements ISuperModel {
   }
 
   dynamic operator [](String key) {
-    final getter = SuperAnimalMappableFields._$getters[key];
-    return getter == null ? null : getter(this as SuperAnimal);
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
   }
 
   SuperAnimal $copyWith({
@@ -91,28 +85,23 @@ extension SuperAnimalSuperModelGeneratedFields on SuperAnimal {
   static const String $name = "name";
   static const String $species = "species";
   static const String $age = "age";
-  static const ModelClassMeta $meta =
-      ModelClassMeta(SuperAnimal, null, "id", int, {
-    $id: const PropertyMeta($id, int, false, 'int', 'int'),
-    $name: const PropertyMeta($name, String, false, 'String', 'String'),
-    $species: const PropertyMeta($species, String, true, 'String', 'String?'),
-    $age: const PropertyMeta($age, int, true, 'int', 'int?'),
+  static ModelClassMeta $meta = ModelClassMeta(SuperAnimal, null, "id", int, {
+    $id: PropertyMeta(
+        $id, int, false, 'int', 'int', (o) => (o as SuperAnimal).id),
+    $name: PropertyMeta($name, String, false, 'String', 'String',
+        (o) => (o as SuperAnimal).name),
+    $species: PropertyMeta($species, String, true, 'String', 'String?',
+        (o) => (o as SuperAnimal).species),
+    $age: PropertyMeta(
+        $age, int, true, 'int', 'int?', (o) => (o as SuperAnimal).age),
   });
 }
 
 mixin SuperAnimalMeta on SuperModelBase {
   @override
-  Map<String, dynamic Function(SuperModelBase)> get $getters => {
-        "id": (o) => (o as SuperAnimal).id,
-        "name": (o) => (o as SuperAnimal).name,
-        "species": (o) => (o as SuperAnimal).species,
-        "age": (o) => (o as SuperAnimal).age
-      };
-  @override
   dynamic operator [](String key) {
-    var getter = $getters[key];
-    if (getter == null) return null;
-    return getter(this);
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
   }
 
   @override

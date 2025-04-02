@@ -28,7 +28,6 @@ class Person extends SuperModelBase with PersonMeta {
     _age = age,
     _email = email;
 
-  // Getters
   int get id => _id;
   String get name => _name;
   int get age => _age;

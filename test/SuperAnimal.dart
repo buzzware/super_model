@@ -26,5 +26,5 @@ class SuperAnimal extends SuperModelBase with SuperAnimalMappable, SuperAnimalMe
   static SuperAnimal fromMap(Map<String, dynamic> map) => SuperAnimalMapper.fromMap(map);
   static SuperAnimal $fromJson(String json) => SuperAnimalMapper.fromJson(json);
   static SuperAnimal $fromMap(Map<String, dynamic> map) => SuperAnimalMapper.fromMap(map);
-  static const ModelClassMeta $meta = SuperAnimalSuperModelGeneratedFields.$meta;
+  static ModelClassMeta $meta = SuperAnimalSuperModelGeneratedFields.$meta;
 }

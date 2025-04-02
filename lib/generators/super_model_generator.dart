@@ -50,11 +50,11 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
     final idType = idField != null ? _typeToString(idField.type) : 'int';
 
     // Generate meta information
-    buffer.writeln('  static const ModelClassMeta \$meta = ModelClassMeta($className, null, "$idName", $idType, {');
+    buffer.writeln('  static ModelClassMeta \$meta = ModelClassMeta($className, null, "$idName", $idType, {');
     for (final field in fields) {
       final typeString = _typeToString(field.type);
       final isNullable = field.type.toString().endsWith('?');
-      buffer.writeln('    \$${field.name}: const PropertyMeta(\$${field.name}, $typeString, $isNullable, \'$typeString\', \'${isNullable ? '$typeString?' : typeString}\'),');
+      buffer.writeln('    \$${field.name}: PropertyMeta(\$${field.name}, $typeString, $isNullable, \'$typeString\', \'${isNullable ? '$typeString?' : typeString}\', (o) => (o as $className).${field.name}),');
     }
     buffer.writeln('  });');
     buffer.writeln('}');
@@ -62,16 +62,11 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
     // Create a mixin for instance methods
     buffer.writeln('mixin ${className}Meta on SuperModelBase {');
 
-    // Getters implementation
-    final gettersMap = fields.map((f) => '"${f.name}": (o) => (o as $className).${f.name}').join(',');
-    buffer.writeln('  @override');
-    buffer.writeln('  Map<String, dynamic Function(SuperModelBase)> get \$getters => {$gettersMap};');
-
+    // Override operator[] to use PropertyMeta.getValue
     buffer.writeln('  @override');
     buffer.writeln('  dynamic operator[](String key) {');
-    buffer.writeln('    var getter = \$getters[key];');
-    buffer.writeln('    if (getter == null) return null;');
-    buffer.writeln('    return getter(this);');
+    buffer.writeln('    final property = \$classMeta.fields[key];');
+    buffer.writeln('    return property?.getValue(this);');
     buffer.writeln('  }');
 
     // ClassMeta getter
@@ -159,12 +154,6 @@ class MappableSuperModelGenerator extends GeneratorForAnnotation<MappableSuperMo
     buffer.writeln('  static const \$fromJson = $mapperClassName.fromJson;');
     buffer.writeln('  static const \$fromMap = $mapperClassName.fromMap;');
 
-    // Generate getters map
-    buffer.writeln('  static Map<String, dynamic Function($className)> _\$getters = {');
-    for (final field in fields) {
-      buffer.writeln('    \$${field.name}: ($className o) => o.${field.name},');
-    }
-    buffer.writeln('  };');
     buffer.writeln('}');
 
     // Create a mixin for instance methods
@@ -182,9 +171,9 @@ class MappableSuperModelGenerator extends GeneratorForAnnotation<MappableSuperMo
 
     buffer.writeln('  @override');
     buffer.writeln('  T? \$get<T>(String key, [T? defaultValue]) {');
-    buffer.writeln('    final getter = ${className}MappableFields._\$getters[key];');
-    buffer.writeln('    if (getter == null) return defaultValue;');
-    buffer.writeln('    return getter(this as $className) as T?;');
+    buffer.writeln('    final property = \$classMeta.fields[key];');
+    buffer.writeln('    if (property == null) return defaultValue;');
+    buffer.writeln('    return property.getValue(this) as T?;');
     buffer.writeln('  }');
 
     buffer.writeln('  @override');
@@ -204,8 +193,8 @@ class MappableSuperModelGenerator extends GeneratorForAnnotation<MappableSuperMo
     buffer.writeln('  }');
 
     buffer.writeln('  dynamic operator [](String key) {');
-    buffer.writeln('    final getter = ${className}MappableFields._\$getters[key];');
-    buffer.writeln('    return getter == null ? null : getter(this as $className);');
+    buffer.writeln('    final property = \$classMeta.fields[key];');
+    buffer.writeln('    return property?.getValue(this);');
     buffer.writeln('  }');
 
     // CopyWith method

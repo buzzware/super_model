@@ -12,19 +12,12 @@ mixin CarMeta {
   static const String $colour = 'colour';
   static const String $manufacturer_id = 'manufacturer_id';
 
-  static ModelClassMeta $meta = const ModelClassMeta(Car, null, "id", int, {
-    $id: const PropertyMeta($id, int, false, 'int', 'int'),
-    $name: const PropertyMeta($name, String, false, 'String', 'String'),
-    $year: const PropertyMeta($year, int, false, 'int', 'int'),
-    $colour: const PropertyMeta($colour, String, true, 'String', 'String?'),
+  static ModelClassMeta $meta = ModelClassMeta(Car, null, "id", int, {
+    $id: PropertyMeta($id, int, false, 'int', 'int', (o) => (o as Car).id),
+    $name: PropertyMeta($name, String, false, 'String', 'String', (o) => (o as Car).name),
+    $year: PropertyMeta($year, int, false, 'int', 'int', (o) => (o as Car).year),
+    $colour: PropertyMeta($colour, String, true, 'String', 'String?', (o) => (o as Car).colour),
   });
-
-  static Map<String, dynamic Function(SuperModelBase)> _$getters = {
-    $id: (o) => (o as Car).id,
-    $name: (o) => (o as Car).name,
-    $year: (o) => (o as Car).year,
-    $colour: (o) => (o as Car).colour
-  };
 
   static const $fromMap = CarMapper.fromMap;
   static const $fromJson = CarMapper.fromJson;
@@ -42,9 +35,6 @@ mixin CarMeta {
   // static fromJson(String json) {
   //   return fromMap(jsonDecode(json));
   // }
-
-  //@override
-  Map<String, dynamic Function(SuperModelBase)> get $getters => CarMeta._$getters;
 
   //@override
   ModelClassMeta get $classMeta => CarMeta.$meta;
@@ -72,16 +62,14 @@ mixin CarMeta {
 
   //@override
   T? $get<T>(String key, [T? defaultValue]) {
-    final getter = $getters[key];
-    if (getter == null) return defaultValue;
-    return getter(this as Car) as T?;
+    final property = $classMeta.fields[key];
+    return property?.getValue(this as Car);
   }
 
   //@override
   dynamic operator [](String key) {
-    var getter = $getters[key];
-    if (getter == null) return null;
-    return getter(this as Car);
+    final property = $classMeta.fields[key];
+    return property?.getValue(this as Car);
   }
 
   //@override

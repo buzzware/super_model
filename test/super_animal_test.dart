@@ -99,28 +99,28 @@ void main() {
         );
         expect(animal.name,equals("Fred"));
 
-        expect(animal.$get(SuperAnimalMappableFields.$name),equals("Fred"));
-        expect(animal.$get<String>(SuperAnimalMappableFields.$name),equals("Fred"));
-        expect(animal[SuperAnimalMappableFields.$name],equals("Fred"));
+        expect(animal.$get(SuperAnimalMeta.$name),equals("Fred"));
+        expect(animal.$get<String>(SuperAnimalMeta.$name),equals("Fred"));
+        expect(animal[SuperAnimalMeta.$name],equals("Fred"));
 
         expect(animal.$get<int>(SuperAnimal.$meta.idName!),equals(3));
         expect(animal.$get<num>(SuperAnimal.$meta.idName!),equals(3));
-        expect(animal[SuperAnimalMappableFields.$id],equals(3));
+        expect(animal[SuperAnimalMeta.$id],equals(3));
 
         expect(animal.$classMeta.fields.keys.toList(),equals(['id','name','species','age']));
         expect(animal[animal.$classMeta.idName!],equals(3));
         expect(animal.$classMeta.idType,equals(int));
 
-        expect(SuperAnimalMappableFields.$id, equals('id'));
-        expect(SuperAnimalMappableFields.$name, equals('name'));
-        expect(SuperAnimal.$meta.fields[SuperAnimalMappableFields.$id]!.nullable,isFalse);
-        expect(SuperAnimal.$meta.fields[SuperAnimalMappableFields.$id]!.type,equals(int));
+        expect(SuperAnimalMeta.$id, equals('id'));
+        expect(SuperAnimalMeta.$name, equals('name'));
+        expect(SuperAnimal.$meta.fields[SuperAnimalMeta.$id]!.nullable,isFalse);
+        expect(SuperAnimal.$meta.fields[SuperAnimalMeta.$id]!.type,equals(int));
 
         expect(SuperAnimal.$meta.idName,equals('id'));
         expect(SuperAnimal.$meta.idType,equals(int));
 
-        expect(SuperAnimal.$meta.fields[SuperAnimalMappableFields.$name]!.nullable,isFalse);
-        expect(SuperAnimal.$meta.fields[SuperAnimalMappableFields.$name]!.type,equals(String));
+        expect(SuperAnimal.$meta.fields[SuperAnimalMeta.$name]!.nullable,isFalse);
+        expect(SuperAnimal.$meta.fields[SuperAnimalMeta.$name]!.type,equals(String));
       });
 
       test('copyWith', () {

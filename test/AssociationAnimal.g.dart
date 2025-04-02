@@ -3,28 +3,36 @@
 part of 'AssociationAnimal.dart';
 
 // **************************************************************************
-// MappableSuperModelGenerator
+// SuperModelGenerator
 // **************************************************************************
 
 // **************************************************************************
-// MappableSuperModelGenerator
+// SuperModelGenerator
 // **************************************************************************
-class PersonMappableFields {
-  static const String $id = 'id';
-  static const String $name = 'name';
+mixin PersonMeta on SuperModelBase implements ISuperModel {
+  static const String $id = "id";
+  static const String $name = "name";
   static const fromJson = PersonMapper.fromJson;
   static const fromMap = PersonMapper.fromMap;
   static const $fromJson = PersonMapper.fromJson;
   static const $fromMap = PersonMapper.fromMap;
-}
-
-mixin PersonMappableMixin on SuperModelBase implements ISuperModel {
+  static ModelClassMeta $meta = ModelClassMeta(Person, null, "id", int, {
+    $id: PropertyMeta($id, int, false, 'int', 'int', (o) => (o as Person).id),
+    $name: PropertyMeta(
+        $name, String, false, 'String', 'String', (o) => (o as Person).name),
+  });
   @override
-  ModelClassMeta get $classMeta => PersonSuperModelGeneratedFields.$meta;
+  dynamic operator [](String key) {
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
+  }
+
+  @override
+  ModelClassMeta get $classMeta => $meta;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
     final mergedMap = {...(this as Person).toMap(), ...map};
-    return PersonMappableFields.fromMap(mergedMap) as M;
+    return fromMap(mergedMap) as M;
   }
 
   @override
@@ -50,11 +58,6 @@ mixin PersonMappableMixin on SuperModelBase implements ISuperModel {
     throw UnimplementedError("toJson() not implemented in ${this.runtimeType}");
   }
 
-  dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
-    return property?.getValue(this);
-  }
-
   Person $copyWith({
     int? id,
     String? name,
@@ -68,28 +71,43 @@ mixin PersonMappableMixin on SuperModelBase implements ISuperModel {
 }
 
 // **************************************************************************
-// MappableSuperModelGenerator
+// SuperModelGenerator
 // **************************************************************************
-class AssociationAnimalMappableFields {
-  static const String $id = 'id';
-  static const String $name = 'name';
-  static const String $species = 'species';
-  static const String $age = 'age';
-  static const String $owner = 'owner';
+mixin AssociationAnimalMeta on SuperModelBase implements ISuperModel {
+  static const String $id = "id";
+  static const String $name = "name";
+  static const String $species = "species";
+  static const String $age = "age";
+  static const String $owner = "owner";
   static const fromJson = AssociationAnimalMapper.fromJson;
   static const fromMap = AssociationAnimalMapper.fromMap;
   static const $fromJson = AssociationAnimalMapper.fromJson;
   static const $fromMap = AssociationAnimalMapper.fromMap;
-}
-
-mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
+  static ModelClassMeta $meta =
+      ModelClassMeta(AssociationAnimal, null, "id", int, {
+    $id: PropertyMeta(
+        $id, int, false, 'int', 'int', (o) => (o as AssociationAnimal).id),
+    $name: PropertyMeta($name, String, false, 'String', 'String',
+        (o) => (o as AssociationAnimal).name),
+    $species: PropertyMeta($species, String, true, 'String', 'String?',
+        (o) => (o as AssociationAnimal).species),
+    $age: PropertyMeta(
+        $age, int, true, 'int', 'int?', (o) => (o as AssociationAnimal).age),
+    $owner: PropertyMeta($owner, Person, true, 'Person', 'Person?',
+        (o) => (o as AssociationAnimal).owner),
+  });
   @override
-  ModelClassMeta get $classMeta =>
-      AssociationAnimalSuperModelGeneratedFields.$meta;
+  dynamic operator [](String key) {
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
+  }
+
+  @override
+  ModelClassMeta get $classMeta => $meta;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
     final mergedMap = {...(this as AssociationAnimal).toMap(), ...map};
-    return AssociationAnimalMappableFields.fromMap(mergedMap) as M;
+    return fromMap(mergedMap) as M;
   }
 
   @override
@@ -115,11 +133,6 @@ mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
     throw UnimplementedError("toJson() not implemented in ${this.runtimeType}");
   }
 
-  dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
-    return property?.getValue(this);
-  }
-
   AssociationAnimal $copyWith({
     int? id,
     String? name,
@@ -135,72 +148,4 @@ mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
       age: age ?? self.age,
     );
   }
-}
-
-// **************************************************************************
-// SuperModelGenerator
-// **************************************************************************
-
-// **************************************************************************
-// SuperModelGenerator
-// **************************************************************************
-extension PersonSuperModelGeneratedFields on Person {
-  static const String $id = "id";
-  static const String $name = "name";
-  static ModelClassMeta $meta = ModelClassMeta(Person, null, "id", int, {
-    $id: PropertyMeta($id, int, false, 'int', 'int', (o) => (o as Person).id),
-    $name: PropertyMeta(
-        $name, String, false, 'String', 'String', (o) => (o as Person).name),
-  });
-}
-
-mixin PersonMeta on SuperModelBase {
-  @override
-  dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
-    return property?.getValue(this);
-  }
-
-  @override
-  ModelClassMeta get $classMeta => PersonSuperModelGeneratedFields.$meta;
-  static const $fromJson = PersonMapper.fromJson;
-  static const $fromMap = PersonMapper.fromMap;
-}
-
-// **************************************************************************
-// SuperModelGenerator
-// **************************************************************************
-extension AssociationAnimalSuperModelGeneratedFields on AssociationAnimal {
-  static const String $id = "id";
-  static const String $name = "name";
-  static const String $species = "species";
-  static const String $age = "age";
-  static const String $owner = "owner";
-  static ModelClassMeta $meta =
-      ModelClassMeta(AssociationAnimal, null, "id", int, {
-    $id: PropertyMeta(
-        $id, int, false, 'int', 'int', (o) => (o as AssociationAnimal).id),
-    $name: PropertyMeta($name, String, false, 'String', 'String',
-        (o) => (o as AssociationAnimal).name),
-    $species: PropertyMeta($species, String, true, 'String', 'String?',
-        (o) => (o as AssociationAnimal).species),
-    $age: PropertyMeta(
-        $age, int, true, 'int', 'int?', (o) => (o as AssociationAnimal).age),
-    $owner: PropertyMeta($owner, Person, true, 'Person', 'Person?',
-        (o) => (o as AssociationAnimal).owner),
-  });
-}
-
-mixin AssociationAnimalMeta on SuperModelBase {
-  @override
-  dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
-    return property?.getValue(this);
-  }
-
-  @override
-  ModelClassMeta get $classMeta =>
-      AssociationAnimalSuperModelGeneratedFields.$meta;
-  static const $fromJson = AssociationAnimalMapper.fromJson;
-  static const $fromMap = AssociationAnimalMapper.fromMap;
 }

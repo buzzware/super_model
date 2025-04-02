@@ -7,7 +7,7 @@ part 'SuperAnimal.g.dart';
 @SuperModel()
 @MappableSuperModel()
 @MappableClass()
-class SuperAnimal extends SuperModelBase with SuperAnimalMappable, SuperAnimalMeta, SuperAnimalMappableMixin {
+class SuperAnimal extends SuperModelBase with SuperAnimalMappable, SuperAnimalMeta {
 
   SuperAnimal({
     required this.id,
@@ -22,5 +22,5 @@ class SuperAnimal extends SuperModelBase with SuperAnimalMappable, SuperAnimalMe
   final String? species;
   final int? age;
 
-  static ModelClassMeta $meta = SuperAnimalSuperModelGeneratedFields.$meta;
+  static ModelClassMeta $meta = SuperAnimalMeta.$meta;
 }

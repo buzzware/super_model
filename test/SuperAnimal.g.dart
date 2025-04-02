@@ -3,30 +3,43 @@
 part of 'SuperAnimal.dart';
 
 // **************************************************************************
-// MappableSuperModelGenerator
+// SuperModelGenerator
 // **************************************************************************
 
 // **************************************************************************
-// MappableSuperModelGenerator
+// SuperModelGenerator
 // **************************************************************************
-class SuperAnimalMappableFields {
-  static const String $id = 'id';
-  static const String $name = 'name';
-  static const String $species = 'species';
-  static const String $age = 'age';
+mixin SuperAnimalMeta on SuperModelBase implements ISuperModel {
+  static const String $id = "id";
+  static const String $name = "name";
+  static const String $species = "species";
+  static const String $age = "age";
   static const fromJson = SuperAnimalMapper.fromJson;
   static const fromMap = SuperAnimalMapper.fromMap;
   static const $fromJson = SuperAnimalMapper.fromJson;
   static const $fromMap = SuperAnimalMapper.fromMap;
-}
-
-mixin SuperAnimalMappableMixin on SuperModelBase implements ISuperModel {
+  static ModelClassMeta $meta = ModelClassMeta(SuperAnimal, null, "id", int, {
+    $id: PropertyMeta(
+        $id, int, false, 'int', 'int', (o) => (o as SuperAnimal).id),
+    $name: PropertyMeta($name, String, false, 'String', 'String',
+        (o) => (o as SuperAnimal).name),
+    $species: PropertyMeta($species, String, true, 'String', 'String?',
+        (o) => (o as SuperAnimal).species),
+    $age: PropertyMeta(
+        $age, int, true, 'int', 'int?', (o) => (o as SuperAnimal).age),
+  });
   @override
-  ModelClassMeta get $classMeta => SuperAnimalSuperModelGeneratedFields.$meta;
+  dynamic operator [](String key) {
+    final property = $classMeta.fields[key];
+    return property?.getValue(this);
+  }
+
+  @override
+  ModelClassMeta get $classMeta => $meta;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
     final mergedMap = {...(this as SuperAnimal).toMap(), ...map};
-    return SuperAnimalMappableFields.fromMap(mergedMap) as M;
+    return fromMap(mergedMap) as M;
   }
 
   @override
@@ -52,11 +65,6 @@ mixin SuperAnimalMappableMixin on SuperModelBase implements ISuperModel {
     throw UnimplementedError("toJson() not implemented in ${this.runtimeType}");
   }
 
-  dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
-    return property?.getValue(this);
-  }
-
   SuperAnimal $copyWith({
     int? id,
     String? name,
@@ -71,41 +79,4 @@ mixin SuperAnimalMappableMixin on SuperModelBase implements ISuperModel {
       age: age ?? self.age,
     );
   }
-}
-
-// **************************************************************************
-// SuperModelGenerator
-// **************************************************************************
-
-// **************************************************************************
-// SuperModelGenerator
-// **************************************************************************
-extension SuperAnimalSuperModelGeneratedFields on SuperAnimal {
-  static const String $id = "id";
-  static const String $name = "name";
-  static const String $species = "species";
-  static const String $age = "age";
-  static ModelClassMeta $meta = ModelClassMeta(SuperAnimal, null, "id", int, {
-    $id: PropertyMeta(
-        $id, int, false, 'int', 'int', (o) => (o as SuperAnimal).id),
-    $name: PropertyMeta($name, String, false, 'String', 'String',
-        (o) => (o as SuperAnimal).name),
-    $species: PropertyMeta($species, String, true, 'String', 'String?',
-        (o) => (o as SuperAnimal).species),
-    $age: PropertyMeta(
-        $age, int, true, 'int', 'int?', (o) => (o as SuperAnimal).age),
-  });
-}
-
-mixin SuperAnimalMeta on SuperModelBase {
-  @override
-  dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
-    return property?.getValue(this);
-  }
-
-  @override
-  ModelClassMeta get $classMeta => SuperAnimalSuperModelGeneratedFields.$meta;
-  static const $fromJson = SuperAnimalMapper.fromJson;
-  static const $fromMap = SuperAnimalMapper.fromMap;
 }

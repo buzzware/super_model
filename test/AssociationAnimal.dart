@@ -6,7 +6,7 @@ part 'AssociationAnimal.g.dart';
 @SuperModel()
 @MappableSuperModel()
 @MappableClass()
-class Person extends SuperModelBase with PersonMappable, PersonMeta, PersonMappableMixin {
+class Person extends SuperModelBase with PersonMappable, PersonMeta {
   Person({
     required this.id,
     required this.name
@@ -21,7 +21,7 @@ class Person extends SuperModelBase with PersonMappable, PersonMeta, PersonMappa
 @MappableSuperModel()
 @SuperModel()
 @MappableClass()
-class AssociationAnimal extends SuperModelBase with AssociationAnimalMappable, AssociationAnimalMeta, AssociationAnimalMappableMixin {
+class AssociationAnimal extends SuperModelBase with AssociationAnimalMappable, AssociationAnimalMeta {
 
   AssociationAnimal({
     required this.id,

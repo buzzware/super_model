@@ -41,7 +41,7 @@ class Person extends SuperModelBase with PersonMappable, PersonMeta {
 @SuperModel()
 @MappableSuperModel()
 @MappableClass()
-class Employee extends SuperModelBase with EmployeeMappable, EmployeeMeta, EmployeeMappableMixin {
+class Employee extends SuperModelBase with EmployeeMappable, EmployeeMeta {
   @SuperModelId()
   final int id;
 

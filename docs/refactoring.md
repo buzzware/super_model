@@ -1,10 +1,10 @@
 
-extension SuperAnimalMappableFields
+class SuperAnimalMappableFields
 mixin SuperAnimalMappableMixin
 extension SuperAnimalSuperModelGeneratedFields
-mixin SuperAnimalSuperModelMixin
+mixin SuperAnimalMeta
 
 
 
 Change the code generation so that *MappableMixin eg. SuperAnimalMappableMixin
-mixes in  *SuperModelMixin eg. SuperAnimalSuperModelMixin so that *SuperModelMixin does not need to be mixed into SuperAnimal  
+mixes in  *Meta eg. SuperAnimalMeta so that *Meta does not need to be mixed into SuperAnimal  

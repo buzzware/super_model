@@ -60,7 +60,7 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
     buffer.writeln('}');
 
     // Create a mixin for instance methods
-    buffer.writeln('mixin ${className}SuperModelMixin on SuperModelBase {');
+    buffer.writeln('mixin ${className}Meta on SuperModelBase {');
 
     // Getters implementation
     final gettersMap = fields.map((f) => '"${f.name}": () => (this as $className).${f.name}').join(',');

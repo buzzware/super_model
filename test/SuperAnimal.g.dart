@@ -99,7 +99,7 @@ extension SuperAnimalSuperModelGeneratedFields on SuperAnimal {
   });
 }
 
-mixin SuperAnimalSuperModelMixin on SuperModelBase {
+mixin SuperAnimalMeta on SuperModelBase {
   @override
   Map<String, dynamic Function()> get $getters => {
         "id": () => (this as SuperAnimal).id,

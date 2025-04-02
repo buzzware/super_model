@@ -164,7 +164,7 @@ extension PersonSuperModelGeneratedFields on Person {
   });
 }
 
-mixin PersonSuperModelMixin on SuperModelBase {
+mixin PersonMeta on SuperModelBase {
   @override
   Map<String, dynamic Function()> get $getters =>
       {"id": () => (this as Person).id, "name": () => (this as Person).name};
@@ -198,7 +198,7 @@ extension AssociationAnimalSuperModelGeneratedFields on AssociationAnimal {
   });
 }
 
-mixin AssociationAnimalSuperModelMixin on SuperModelBase {
+mixin AssociationAnimalMeta on SuperModelBase {
   @override
   Map<String, dynamic Function()> get $getters => {
         "id": () => (this as AssociationAnimal).id,

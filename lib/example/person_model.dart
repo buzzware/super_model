@@ -7,7 +7,7 @@ part 'person_model.mapper.dart';
 part 'person_model.g.dart'; // Generated code will be placed here
 
 @SuperModel()
-class Person extends SuperModelBase with PersonSuperModelMixin {
+class Person extends SuperModelBase with PersonMeta {
   // Mark id field with SuperModelId annotation
   @SuperModelId()
   final int _id;
@@ -42,7 +42,7 @@ class Person extends SuperModelBase with PersonSuperModelMixin {
 @MappableClass()
 @SuperModel()
 @MappableSuperModel()
-class Employee extends SuperModelBase with EmployeeMappable, EmployeeSuperModelMixin, EmployeeMappableMixin {
+class Employee extends SuperModelBase with EmployeeMappable, EmployeeMeta, EmployeeMappableMixin {
   @SuperModelId()
   final int id;
 
@@ -67,7 +67,7 @@ class Employee extends SuperModelBase with EmployeeMappable, EmployeeSuperModelM
 
 // Example of using BelongsTo relationship
 @SuperModel()
-class Department extends SuperModelBase with DepartmentSuperModelMixin {
+class Department extends SuperModelBase with DepartmentMeta {
   @SuperModelId()
   final int id;
 

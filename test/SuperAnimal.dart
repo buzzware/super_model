@@ -7,7 +7,7 @@ part 'SuperAnimal.g.dart';
 @SuperModel()
 @MappableSuperModel()
 @MappableClass()
-class SuperAnimal extends SuperModelBase with SuperAnimalMappable, SuperAnimalSuperModelMixin, SuperAnimalMappableMixin {
+class SuperAnimal extends SuperModelBase with SuperAnimalMappable, SuperAnimalMeta, SuperAnimalMappableMixin {
 
   SuperAnimal({
     required this.id,

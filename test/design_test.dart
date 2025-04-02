@@ -72,7 +72,7 @@ mixin CarMeta {
 
   //@override
   T? $get<T>(String key, [T? defaultValue]) {
-    final getter = CarMeta._$getters[key];
+    final getter = $getters[key];
     if (getter == null) return defaultValue;
     return getter(this as Car) as T?;
   }

@@ -18,7 +18,7 @@ mixin SuperAnimalMeta on SuperModelBase implements ISuperModel {
   static const fromMap = SuperAnimalMapper.fromMap;
   static const $fromJson = SuperAnimalMapper.fromJson;
   static const $fromMap = SuperAnimalMapper.fromMap;
-  static ModelClassMeta $meta = ModelClassMeta(SuperAnimal, null, "id", int, {
+  static SuperModelInfo $info = SuperModelInfo(SuperAnimal, null, "id", int, {
     $id: PropertyMeta(
         $id, int, false, 'int', 'int', (o) => (o as SuperAnimal).id),
     $name: PropertyMeta($name, String, false, 'String', 'String',
@@ -30,12 +30,12 @@ mixin SuperAnimalMeta on SuperModelBase implements ISuperModel {
   });
   @override
   dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     return property?.getValue(this);
   }
 
   @override
-  ModelClassMeta get $classMeta => $meta;
+  SuperModelInfo get $classInfo => $info;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
     final mergedMap = {...(this as SuperAnimal).toMap(), ...map};
@@ -44,7 +44,7 @@ mixin SuperAnimalMeta on SuperModelBase implements ISuperModel {
 
   @override
   T? $get<T>(String key, [T? defaultValue]) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     if (property == null) return defaultValue;
     return property.getValue(this) as T?;
   }

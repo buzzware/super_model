@@ -30,12 +30,12 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
 
     // Create a mixin for instance methods that includes both Meta and MappableMixin functionality
     buffer.writeln('mixin ${className}Meta on SuperModelBase implements ISuperModel {');
-    
+
     // Generate field constants directly in the mixin
     for (final field in fields) {
       buffer.writeln('  static const String \$${field.name} = "${field.name}";');
     }
-    
+
     // Static fromJson/fromMap methods
     buffer.writeln('  static const fromJson = ${className}Mapper.fromJson;');
     buffer.writeln('  static const fromMap = ${className}Mapper.fromMap;');
@@ -56,7 +56,7 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
     final idType = idField != null ? _typeToString(idField.type) : 'int';
 
     // Generate meta information
-    buffer.writeln('  static ModelClassMeta \$meta = ModelClassMeta($className, null, "$idName", $idType, {');
+    buffer.writeln('  static SuperModelInfo \$info = SuperModelInfo($className, null, "$idName", $idType, {');
     for (final field in fields) {
       final typeString = _typeToString(field.type);
       final isNullable = field.type.toString().endsWith('?');
@@ -67,28 +67,28 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
     // Override operator[] to use PropertyMeta.getValue
     buffer.writeln('  @override');
     buffer.writeln('  dynamic operator[](String key) {');
-    buffer.writeln('    final property = \$classMeta.fields[key];');
+    buffer.writeln('    final property = \$classInfo.fields[key];');
     buffer.writeln('    return property?.getValue(this);');
     buffer.writeln('  }');
 
     // ClassMeta getter
     buffer.writeln('  @override');
-    buffer.writeln('  ModelClassMeta get \$classMeta => \$meta;');
-    
+    buffer.writeln('  SuperModelInfo get \$classInfo => \$info;');
+
     // Add mappable functionality
     buffer.writeln('  @override');
     buffer.writeln('  M \$copyWithMap<M>(Map<String, dynamic> map) {');
     buffer.writeln('    final mergedMap = {...(this as $className).toMap(), ...map};');
     buffer.writeln('    return fromMap(mergedMap) as M;');
     buffer.writeln('  }');
-    
+
     buffer.writeln('  @override');
     buffer.writeln('  T? \$get<T>(String key, [T? defaultValue]) {');
-    buffer.writeln('    final property = \$classMeta.fields[key];');
+    buffer.writeln('    final property = \$classInfo.fields[key];');
     buffer.writeln('    if (property == null) return defaultValue;');
     buffer.writeln('    return property.getValue(this) as T?;');
     buffer.writeln('  }');
-    
+
     buffer.writeln('  @override');
     buffer.writeln('  Map<String, dynamic> \$toMap() {');
     buffer.writeln('    if (this is $className) {');
@@ -96,7 +96,7 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
     buffer.writeln('    }');
     buffer.writeln('    throw UnimplementedError("toMap() not implemented in \${this.runtimeType}");');
     buffer.writeln('  }');
-    
+
     buffer.writeln('  @override');
     buffer.writeln('  String \$toJson() {');
     buffer.writeln('    if (this is $className) {');
@@ -104,10 +104,10 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
     buffer.writeln('    }');
     buffer.writeln('    throw UnimplementedError("toJson() not implemented in \${this.runtimeType}");');
     buffer.writeln('  }');
-    
+
     // Generate $copyWith method
     generateCopyWithForClass(buffer, classElement);
-    
+
     buffer.writeln('}');
 
     return buffer.toString();
@@ -175,7 +175,7 @@ class MappableSuperModelGenerator extends GeneratorForAnnotation<MappableSuperMo
 void generateCopyWithForClass(StringBuffer buffer, ClassElement classElement) {
   final className = classElement.name;
   final fields = classElement.fields.where((f) => !f.isStatic && !f.name.startsWith('_')).toList();
-  
+
   // CopyWith method implementation
   buffer.writeln('  $className \$copyWith({');
 

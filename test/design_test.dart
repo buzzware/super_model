@@ -12,7 +12,7 @@ mixin CarMeta {
   static const String $colour = 'colour';
   static const String $manufacturer_id = 'manufacturer_id';
 
-  static ModelClassMeta $meta = ModelClassMeta(Car, null, "id", int, {
+  static SuperModelInfo $info = SuperModelInfo(Car, null, "id", int, {
     $id: PropertyMeta($id, int, false, 'int', 'int', (o) => (o as Car).id),
     $name: PropertyMeta($name, String, false, 'String', 'String', (o) => (o as Car).name),
     $year: PropertyMeta($year, int, false, 'int', 'int', (o) => (o as Car).year),
@@ -37,7 +37,7 @@ mixin CarMeta {
   // }
 
   //@override
-  ModelClassMeta get $classMeta => CarMeta.$meta;
+  SuperModelInfo get $classInfo => CarMeta.$info;
 
   Car $copyWith({
     int? id,
@@ -62,13 +62,13 @@ mixin CarMeta {
 
   //@override
   T? $get<T>(String key, [T? defaultValue]) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     return property?.getValue(this as Car);
   }
 
   //@override
   dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     return property?.getValue(this as Car);
   }
 
@@ -180,24 +180,24 @@ void main() {
       expect(car.$get<String>(CarMeta.$name),equals("Fred"));
       expect(car[CarMeta.$name],equals("Fred"));
 
-      expect(car.$get<int>(CarMeta.$meta.idName!),equals(3));
-      expect(car.$get<num>(CarMeta.$meta.idName!),equals(3));
+      expect(car.$get<int>(CarMeta.$info.idName!),equals(3));
+      expect(car.$get<num>(CarMeta.$info.idName!),equals(3));
       expect(car[CarMeta.$id],equals(3));
 
-      expect(car.$classMeta.fields.keys.toList(),equals(['id','name','year','colour']));
-      expect(car[car.$classMeta.idName!],equals(3));
-      expect(car.$classMeta.idType,equals(int));
+      expect(car.$classInfo.fields.keys.toList(),equals(['id','name','year','colour']));
+      expect(car[car.$classInfo.idName!],equals(3));
+      expect(car.$classInfo.idType,equals(int));
 
       expect(CarMeta.$id, equals('id'));
       expect(CarMeta.$name, equals('name'));
-      expect(CarMeta.$meta.fields[CarMeta.$id]!.nullable,isFalse);
-      expect(CarMeta.$meta.fields[CarMeta.$id]!.type,equals(int));
+      expect(CarMeta.$info.fields[CarMeta.$id]!.nullable,isFalse);
+      expect(CarMeta.$info.fields[CarMeta.$id]!.type,equals(int));
 
-      expect(CarMeta.$meta.idName,equals('id'));
-      expect(CarMeta.$meta.idType,equals(int));
+      expect(CarMeta.$info.idName,equals('id'));
+      expect(CarMeta.$info.idType,equals(int));
 
-      expect(CarMeta.$meta.fields[CarMeta.$name]!.nullable,isFalse);
-      expect(CarMeta.$meta.fields[CarMeta.$name]!.type,equals(String));
+      expect(CarMeta.$info.fields[CarMeta.$name]!.nullable,isFalse);
+      expect(CarMeta.$info.fields[CarMeta.$name]!.type,equals(String));
     });
 
     test('copyWith', () {

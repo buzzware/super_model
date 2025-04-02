@@ -103,24 +103,24 @@ void main() {
         expect(animal.$get<String>(SuperAnimalMeta.$name),equals("Fred"));
         expect(animal[SuperAnimalMeta.$name],equals("Fred"));
 
-        expect(animal.$get<int>(SuperAnimal.$meta.idName!),equals(3));
-        expect(animal.$get<num>(SuperAnimal.$meta.idName!),equals(3));
+        expect(animal.$get<int>(SuperAnimal.$info.idName!),equals(3));
+        expect(animal.$get<num>(SuperAnimal.$info.idName!),equals(3));
         expect(animal[SuperAnimalMeta.$id],equals(3));
 
-        expect(animal.$classMeta.fields.keys.toList(),equals(['id','name','species','age']));
-        expect(animal[animal.$classMeta.idName!],equals(3));
-        expect(animal.$classMeta.idType,equals(int));
+        expect(animal.$classInfo.fields.keys.toList(),equals(['id','name','species','age']));
+        expect(animal[animal.$classInfo.idName!],equals(3));
+        expect(animal.$classInfo.idType,equals(int));
 
         expect(SuperAnimalMeta.$id, equals('id'));
         expect(SuperAnimalMeta.$name, equals('name'));
-        expect(SuperAnimal.$meta.fields[SuperAnimalMeta.$id]!.nullable,isFalse);
-        expect(SuperAnimal.$meta.fields[SuperAnimalMeta.$id]!.type,equals(int));
+        expect(SuperAnimal.$info.fields[SuperAnimalMeta.$id]!.nullable,isFalse);
+        expect(SuperAnimal.$info.fields[SuperAnimalMeta.$id]!.type,equals(int));
 
-        expect(SuperAnimal.$meta.idName,equals('id'));
-        expect(SuperAnimal.$meta.idType,equals(int));
+        expect(SuperAnimal.$info.idName,equals('id'));
+        expect(SuperAnimal.$info.idType,equals(int));
 
-        expect(SuperAnimal.$meta.fields[SuperAnimalMeta.$name]!.nullable,isFalse);
-        expect(SuperAnimal.$meta.fields[SuperAnimalMeta.$name]!.type,equals(String));
+        expect(SuperAnimal.$info.fields[SuperAnimalMeta.$name]!.nullable,isFalse);
+        expect(SuperAnimal.$info.fields[SuperAnimalMeta.$name]!.type,equals(String));
       });
 
       test('copyWith', () {
@@ -157,7 +157,7 @@ void main() {
             species: "dog"
         );
         final ISuperModel model = animal;
-        expect(model.$classMeta.fields.keys, equals(['id', 'name', 'species', 'age']));
+        expect(model.$classInfo.fields.keys, equals(['id', 'name', 'species', 'age']));
         final model2 = model.$copyWithMap<ISuperModel>({'name': 'John'});
         expect(model2.$get('name'),equals('John'));
         expect(model2.$toJson(),equals('{"id":3,"name":"John","species":"dog","age":null}'));

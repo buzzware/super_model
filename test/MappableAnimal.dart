@@ -20,7 +20,7 @@ class MappableAnimal extends SuperModelBase with MappableAnimalMappable implemen
   static const String $species = 'species';
   static const String $age = 'age';
 
-  static ModelClassMeta $meta = ModelClassMeta(MappableAnimal, null, MappableAnimal.$id,int, {
+  static SuperModelInfo $info = SuperModelInfo(MappableAnimal, null, MappableAnimal.$id,int, {
     $id: PropertyMeta($id, int, false, 'int', 'int', (o) => (o as MappableAnimal).id),
     $name: PropertyMeta($name, String, false, 'String', 'String', (o) => (o as MappableAnimal).name),
     $species: PropertyMeta($species, String, true, 'String', 'String?', (o) => (o as MappableAnimal).species),
@@ -39,7 +39,7 @@ class MappableAnimal extends SuperModelBase with MappableAnimalMappable implemen
   final int? age;
 
   @override
-  ModelClassMeta get $classMeta => $meta;
+  SuperModelInfo get $classInfo => $info;
 
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
@@ -50,7 +50,7 @@ class MappableAnimal extends SuperModelBase with MappableAnimalMappable implemen
 
   @override
   T? $get<T>(String key, [T? defaultValue = null]) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     if (property == null) return defaultValue;
     return property.getValue(this) as T?;
   }
@@ -67,7 +67,7 @@ class MappableAnimal extends SuperModelBase with MappableAnimalMappable implemen
 
   // for macro but not required in ISuperModel
   dynamic operator[](String key) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     return property?.getValue(this);
   }
 

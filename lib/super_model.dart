@@ -12,5 +12,5 @@ export 'utils.dart';
 part 'SuperModelBase.dart';
 part 'PropertyMeta.dart';
 part 'MemberMeta.dart';
-part 'ModelClassMeta.dart';
+part 'SuperModelInfo.dart';
 part 'ISuperModel.dart';

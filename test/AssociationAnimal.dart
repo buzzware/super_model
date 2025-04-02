@@ -53,7 +53,7 @@ class AssociationAnimal extends SuperModelBase with AssociationAnimalMappable, A
   // static const String $owner = 'owner';
   //
   // // Add static meta for tests
-  // static const ModelClassMeta $meta = ModelClassMeta(AssociationAnimal, null, 'id', int, {
+  // static const SuperModelInfo $info = SuperModelInfo(AssociationAnimal, null, 'id', int, {
   //   $id: PropertyMeta($id, int, false, 'int', 'int'),
   //   $name: PropertyMeta($name, String, false, 'String', 'String'),
   //   $species: PropertyMeta($species, String, true, 'String', 'String?'),

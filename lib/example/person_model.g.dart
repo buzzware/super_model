@@ -18,7 +18,7 @@ mixin PersonMeta on SuperModelBase implements ISuperModel {
   static const fromMap = PersonMapper.fromMap;
   static const $fromJson = PersonMapper.fromJson;
   static const $fromMap = PersonMapper.fromMap;
-  static ModelClassMeta $meta = ModelClassMeta(Person, null, "id", int, {
+  static SuperModelInfo $info = SuperModelInfo(Person, null, "id", int, {
     $id: PropertyMeta($id, int, false, 'int', 'int', (o) => (o as Person).id),
     $name: PropertyMeta(
         $name, String, false, 'String', 'String', (o) => (o as Person).name),
@@ -29,12 +29,12 @@ mixin PersonMeta on SuperModelBase implements ISuperModel {
   });
   @override
   dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     return property?.getValue(this);
   }
 
   @override
-  ModelClassMeta get $classMeta => $meta;
+  SuperModelInfo get $classInfo => $info;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
     final mergedMap = {...(this as Person).toMap(), ...map};
@@ -43,7 +43,7 @@ mixin PersonMeta on SuperModelBase implements ISuperModel {
 
   @override
   T? $get<T>(String key, [T? defaultValue]) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     if (property == null) return defaultValue;
     return property.getValue(this) as T?;
   }
@@ -92,7 +92,7 @@ mixin EmployeeMeta on SuperModelBase implements ISuperModel {
   static const fromMap = EmployeeMapper.fromMap;
   static const $fromJson = EmployeeMapper.fromJson;
   static const $fromMap = EmployeeMapper.fromMap;
-  static ModelClassMeta $meta = ModelClassMeta(Employee, null, "id", int, {
+  static SuperModelInfo $info = SuperModelInfo(Employee, null, "id", int, {
     $id: PropertyMeta($id, int, false, 'int', 'int', (o) => (o as Employee).id),
     $name: PropertyMeta(
         $name, String, false, 'String', 'String', (o) => (o as Employee).name),
@@ -103,12 +103,12 @@ mixin EmployeeMeta on SuperModelBase implements ISuperModel {
   });
   @override
   dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     return property?.getValue(this);
   }
 
   @override
-  ModelClassMeta get $classMeta => $meta;
+  SuperModelInfo get $classInfo => $info;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
     final mergedMap = {...(this as Employee).toMap(), ...map};
@@ -117,7 +117,7 @@ mixin EmployeeMeta on SuperModelBase implements ISuperModel {
 
   @override
   T? $get<T>(String key, [T? defaultValue]) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     if (property == null) return defaultValue;
     return property.getValue(this) as T?;
   }
@@ -165,7 +165,7 @@ mixin DepartmentMeta on SuperModelBase implements ISuperModel {
   static const fromMap = DepartmentMapper.fromMap;
   static const $fromJson = DepartmentMapper.fromJson;
   static const $fromMap = DepartmentMapper.fromMap;
-  static ModelClassMeta $meta = ModelClassMeta(Department, null, "id", int, {
+  static SuperModelInfo $info = SuperModelInfo(Department, null, "id", int, {
     $id: PropertyMeta(
         $id, int, false, 'int', 'int', (o) => (o as Department).id),
     $name: PropertyMeta($name, String, false, 'String', 'String',
@@ -175,12 +175,12 @@ mixin DepartmentMeta on SuperModelBase implements ISuperModel {
   });
   @override
   dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     return property?.getValue(this);
   }
 
   @override
-  ModelClassMeta get $classMeta => $meta;
+  SuperModelInfo get $classInfo => $info;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
     final mergedMap = {...(this as Department).toMap(), ...map};
@@ -189,7 +189,7 @@ mixin DepartmentMeta on SuperModelBase implements ISuperModel {
 
   @override
   T? $get<T>(String key, [T? defaultValue]) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     if (property == null) return defaultValue;
     return property.getValue(this) as T?;
   }

@@ -100,24 +100,24 @@ void main() {
         expect(animal.$get<String>(MappableAnimal.$name),equals("Fred"));
         expect(animal[MappableAnimal.$name],equals("Fred"));
 
-        expect(animal.$get<int>(MappableAnimal.$meta.idName!),equals(3));
-        expect(animal.$get<num>(MappableAnimal.$meta.idName!),equals(3));
+        expect(animal.$get<int>(MappableAnimal.$info.idName!),equals(3));
+        expect(animal.$get<num>(MappableAnimal.$info.idName!),equals(3));
         expect(animal[MappableAnimal.$id],equals(3));
 
-        expect(animal.$classMeta.fields.keys.toList(),equals(['id','name','species','age']));
-        expect(animal[animal.$classMeta.idName!],equals(3));
-        expect(animal.$classMeta.idType,equals(int));
+        expect(animal.$classInfo.fields.keys.toList(),equals(['id','name','species','age']));
+        expect(animal[animal.$classInfo.idName!],equals(3));
+        expect(animal.$classInfo.idType,equals(int));
 
         expect(MappableAnimal.$id, equals('id'));
         expect(MappableAnimal.$name, equals('name'));
-        expect(MappableAnimal.$meta.fields[MappableAnimal.$id]!.nullable,isFalse);
-        expect(MappableAnimal.$meta.fields[MappableAnimal.$id]!.type,equals(int));
+        expect(MappableAnimal.$info.fields[MappableAnimal.$id]!.nullable,isFalse);
+        expect(MappableAnimal.$info.fields[MappableAnimal.$id]!.type,equals(int));
 
-        expect(MappableAnimal.$meta.idName,equals('id'));
-        expect(MappableAnimal.$meta.idType,equals(int));
+        expect(MappableAnimal.$info.idName,equals('id'));
+        expect(MappableAnimal.$info.idType,equals(int));
 
-        expect(MappableAnimal.$meta.fields[MappableAnimal.$name]!.nullable,isFalse);
-        expect(MappableAnimal.$meta.fields[MappableAnimal.$name]!.type,equals(String));
+        expect(MappableAnimal.$info.fields[MappableAnimal.$name]!.nullable,isFalse);
+        expect(MappableAnimal.$info.fields[MappableAnimal.$name]!.type,equals(String));
       });
 
       test('copyWith', () {

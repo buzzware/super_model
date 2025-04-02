@@ -1,7 +1,7 @@
 part of './super_model.dart';
 
 abstract class ISuperModel {
-  ModelClassMeta get $classMeta;
+  SuperModelInfo get $classInfo;
   T? $get<T>(String key, [T? defaultValue = null]);
   M $copyWithMap<M>(Map<String, dynamic> map);
   Map<String, dynamic> $toMap();

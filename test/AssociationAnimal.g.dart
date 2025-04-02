@@ -16,19 +16,19 @@ mixin PersonMeta on SuperModelBase implements ISuperModel {
   static const fromMap = PersonMapper.fromMap;
   static const $fromJson = PersonMapper.fromJson;
   static const $fromMap = PersonMapper.fromMap;
-  static ModelClassMeta $meta = ModelClassMeta(Person, null, "id", int, {
+  static SuperModelInfo $info = SuperModelInfo(Person, null, "id", int, {
     $id: PropertyMeta($id, int, false, 'int', 'int', (o) => (o as Person).id),
     $name: PropertyMeta(
         $name, String, false, 'String', 'String', (o) => (o as Person).name),
   });
   @override
   dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     return property?.getValue(this);
   }
 
   @override
-  ModelClassMeta get $classMeta => $meta;
+  SuperModelInfo get $classInfo => $info;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
     final mergedMap = {...(this as Person).toMap(), ...map};
@@ -37,7 +37,7 @@ mixin PersonMeta on SuperModelBase implements ISuperModel {
 
   @override
   T? $get<T>(String key, [T? defaultValue]) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     if (property == null) return defaultValue;
     return property.getValue(this) as T?;
   }
@@ -83,8 +83,8 @@ mixin AssociationAnimalMeta on SuperModelBase implements ISuperModel {
   static const fromMap = AssociationAnimalMapper.fromMap;
   static const $fromJson = AssociationAnimalMapper.fromJson;
   static const $fromMap = AssociationAnimalMapper.fromMap;
-  static ModelClassMeta $meta =
-      ModelClassMeta(AssociationAnimal, null, "id", int, {
+  static SuperModelInfo $info =
+      SuperModelInfo(AssociationAnimal, null, "id", int, {
     $id: PropertyMeta(
         $id, int, false, 'int', 'int', (o) => (o as AssociationAnimal).id),
     $name: PropertyMeta($name, String, false, 'String', 'String',
@@ -98,12 +98,12 @@ mixin AssociationAnimalMeta on SuperModelBase implements ISuperModel {
   });
   @override
   dynamic operator [](String key) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     return property?.getValue(this);
   }
 
   @override
-  ModelClassMeta get $classMeta => $meta;
+  SuperModelInfo get $classInfo => $info;
   @override
   M $copyWithMap<M>(Map<String, dynamic> map) {
     final mergedMap = {...(this as AssociationAnimal).toMap(), ...map};
@@ -112,7 +112,7 @@ mixin AssociationAnimalMeta on SuperModelBase implements ISuperModel {
 
   @override
   T? $get<T>(String key, [T? defaultValue]) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     if (property == null) return defaultValue;
     return property.getValue(this) as T?;
   }

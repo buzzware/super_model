@@ -1,10 +1,10 @@
 part of './super_model.dart';
 
 abstract class SuperModelBase {
-  ModelClassMeta get $classMeta => ModelClassMeta(SuperModelBase,null,null,null,{});
+  SuperModelInfo get $classInfo => SuperModelInfo(SuperModelBase,null,null,null,{});
   
   dynamic operator[](String key) {
-    final property = $classMeta.fields[key];
+    final property = $classInfo.fields[key];
     return property?.getValue(this);
   }
 }

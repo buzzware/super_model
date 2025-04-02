@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:super_model/super_model.dart';
 import 'package:test/test.dart';
-
+part 'design_test.mapper.dart';
 
 mixin CarMeta {
   static const String $id = 'id';
@@ -10,7 +11,6 @@ mixin CarMeta {
   static const String $year = 'year';
   static const String $colour = 'colour';
   static const String $manufacturer_id = 'manufacturer_id';
-
 
   static ModelClassMeta $meta = const ModelClassMeta(Car, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
@@ -25,6 +25,23 @@ mixin CarMeta {
     $year: (o) => (o as Car).year,
     $colour: (o) => (o as Car).colour
   };
+
+  static const $fromMap = CarMapper.fromMap;
+  static const $fromJson = CarMapper.fromJson;
+
+  // if we don't have Dart Mappable
+  // static fromMap(Map map) {
+  //   return Car(
+  //       id: map[CarMeta.$id] as int,
+  //       name: map[CarMeta.$name] as String,
+  //       year: map[CarMeta.$year] as int,
+  //       colour: map[CarMeta.$colour] as String?,
+  //       manufacturer_id: map[CarMeta.$manufacturer_id] as int?
+  //   );
+  // }
+  // static fromJson(String json) {
+  //   return fromMap(jsonDecode(json));
+  // }
 
   //@override
   Map<String, dynamic Function(SuperModelBase)> get $getters => CarMeta._$getters;
@@ -47,56 +64,40 @@ mixin CarMeta {
     );
   }
 
-  @override
+  //@override
   M $copyWithMap<M>(Map<String, dynamic> map) {
     final mergedMap = {...(this as Car).toMap(), ...map};
-    return CarMeta.fromMap(mergedMap) as M;
+    return CarMeta.$fromMap(mergedMap) as M;
   }
 
-  @override
+  //@override
   T? $get<T>(String key, [T? defaultValue]) {
     final getter = CarMeta._$getters[key];
     if (getter == null) return defaultValue;
     return getter(this as Car) as T?;
   }
 
-  @override
+  //@override
   dynamic operator [](String key) {
     var getter = $getters[key];
     if (getter == null) return null;
     return getter(this as Car);
   }
 
-  @override
+  //@override
   Map<String, dynamic> $toMap() {
     return (this as Car).toMap();
   }
 
-  @override
+  //@override
   String $toJson() {
-    return jsonEncode((this as Car).toMap());
+    return (this as Car).toJson(); //jsonEncode((this as Car).toMap());
   }
-
-  static fromMap(Map map) {
-    return Car(
-      id: map[CarMeta.$id] as int,
-      name: map[CarMeta.$name] as String,
-      year: map[CarMeta.$year] as int,
-      colour: map[CarMeta.$colour] as String,
-      manufacturer_id: map[CarMeta.$manufacturer_id] as int
-    );
-  }
-  static const $fromMap = fromMap;
-
-
-  static fromJson(String json) {
-    return fromMap(jsonDecode(json));
-  }
-  static const $fromJson = fromJson;
 }
 
 
-class Car extends SuperModelBase with CarMeta implements ISuperModel {
+@MappableClass()
+class Car extends SuperModelBase with CarMappable,CarMeta implements ISuperModel {
 
   Car({
     required int id,
@@ -118,21 +119,21 @@ class Car extends SuperModelBase with CarMeta implements ISuperModel {
   //@belongsTo()
   final int? manufacturer_id;
 
-  // will use dart_mappable instead later
-  toMap() {
-    return {
-      [CarMeta.$id]: this.id,
-      [CarMeta.$name]: this.name,
-      [CarMeta.$year]: this.year,
-      [CarMeta.$colour]: this.colour,
-      [CarMeta.$manufacturer_id]: this.manufacturer_id
-    };
-  }
-
-  // will use dart_mappable instead later
-  String toJson() {
-    return jsonEncode(toMap());
-  }
+  // // will use dart_mappable instead later
+  // toMap() {
+  //   return {
+  //     [CarMeta.$id]: this.id,
+  //     [CarMeta.$name]: this.name,
+  //     [CarMeta.$year]: this.year,
+  //     [CarMeta.$colour]: this.colour,
+  //     [CarMeta.$manufacturer_id]: this.manufacturer_id
+  //   };
+  // }
+  //
+  // // will use dart_mappable instead later
+  // String toJson() {
+  //   return jsonEncode(toMap());
+  // }
 }
 
 
@@ -151,12 +152,11 @@ void main() {
     });
 
     test('fromJson', () {
-      const jsonString = '{"id": 1,"name":"Fido","species":"Dog","age":3}';
-      final animal = CarMeta.$fromJson(jsonString);
-      expect(animal.id, equals(1));
-      expect(animal.name, equals('Fido'));
-      expect(animal.species, equals('Dog'));
-      expect(animal.age, equals(3));
+      const jsonString = '{"id": 1,"name":"Corolla","year":1973}';
+      final car = CarMeta.$fromJson(jsonString);
+      expect(car.id, equals(1));
+      expect(car.name, equals('Corolla'));
+      expect(car.year, equals(1973));
     });
 
     test('toMap', () {
@@ -196,7 +196,7 @@ void main() {
       expect(car.$get<num>(CarMeta.$meta.idName!),equals(3));
       expect(car[CarMeta.$id],equals(3));
 
-      expect(car.$classMeta.fields.keys.toList(),equals(['id','name','species','age']));
+      expect(car.$classMeta.fields.keys.toList(),equals(['id','name','year','colour']));
       expect(car[car.$classMeta.idName!],equals(3));
       expect(car.$classMeta.idType,equals(int));
 

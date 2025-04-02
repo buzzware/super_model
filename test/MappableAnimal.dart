@@ -1,17 +1,14 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:super_model/super_model.dart';
 part 'MappableAnimal.mapper.dart';
-part 'MappableAnimal.g.dart';
 
 const undefined = Object();
 
-// an animal model using full dart_mappable generation with annotations for code generation
-@SuperModel()
-@MappableSuperModel()
+// an animal model using full dart_mappable generation and implementing ISuperModel etc without @SuperModel macro
 @MappableClass()
-class MappableAnimal extends SuperModelBase with MappableAnimalMappable, MappableAnimalSuperModelMixin, MappableAnimalMappableMixin {
+class MappableAnimal with MappableAnimalMappable implements ISuperModel {
 
-  MappableAnimal({
+  const MappableAnimal({
     required this.id,
     required this.name,
     this.species,
@@ -23,39 +20,80 @@ class MappableAnimal extends SuperModelBase with MappableAnimalMappable, Mappabl
   static const String $species = 'species';
   static const String $age = 'age';
 
+  static const ModelClassMeta $meta = const ModelClassMeta(MappableAnimal,MappableAnimal.$id,int, {
+    $id: const PropertyMeta($id, int, false, 'int', 'int'),
+    $name: const PropertyMeta($name, String, false, 'String', 'String'),
+    $species: const PropertyMeta($species, String, true, 'String', 'String?'),
+    $age: const PropertyMeta($age, int, true, 'int', 'int?'),
+  });
+
+  static const fromJson = MappableAnimalMapper.fromJson;
+  static const fromMap = MappableAnimalMapper.fromMap;
+  static const $fromJson = MappableAnimalMapper.fromJson;
+  static const $fromMap =  MappableAnimalMapper.fromMap;
+
+  static Map<String, dynamic Function(MappableAnimal)> _$getters = {
+    $id: (MappableAnimal o) => o.id,
+    $name: (MappableAnimal o) => o.name,
+    $species: (MappableAnimal o) => o.species,
+    $age: (MappableAnimal o) => o.age
+  };
+
   @SuperModelId()
   final int id;
   final String name;
   final String? species;
   final int? age;
 
-  // Implementation of required method from SuperModelBase
   @override
-  T getProperty<T>(String propertyName) {
-    switch (propertyName) {
-      case 'id': return id as T;
-      case 'name': return name as T;
-      case 'species': return species as T;
-      case 'age': return age as T;
-      default: throw Exception('Unknown property: $propertyName');
-    }
+  ModelClassMeta get $classMeta => $meta;
+
+  @override
+  M $copyWithMap<M>(Map<String, dynamic> map) {
+    Map<String, dynamic> currentMap = toMap();
+    Map<String, dynamic> mergedMap = {...currentMap, ...map};
+    return MappableAnimalMapper.fromMap(mergedMap) as M;
   }
 
-  // Implement toMap and toJson methods needed by the mappable mixin
-  Map<String, dynamic> toMap() => super.toMap();
-  String toJson() => super.toJson();
+  @override
+  T? $get<T>(String key, [T? defaultValue = null]) {
+    var getter = _$getters[key];
+    if (getter==null) {
+      return defaultValue;
+    }
+    return getter(this) as T?;
+  }
 
-  // Add static serialization methods needed for tests
-  static MappableAnimal fromJson(String json) => MappableAnimalMapper.fromJson(json);
-  static MappableAnimal fromMap(Map<String, dynamic> map) => MappableAnimalMapper.fromMap(map);
-  static MappableAnimal $fromJson(String json) => MappableAnimalMapper.fromJson(json);
-  static MappableAnimal $fromMap(Map<String, dynamic> map) => MappableAnimalMapper.fromMap(map);
+  @override
+  Map<String, dynamic> $toMap() {
+    return this.toMap();
+    }
 
-  // Add static meta for tests
-  static const ModelClassMeta $meta = ModelClassMeta(MappableAnimal, 'id', int, {
-    $id: PropertyMeta($id, int, false, 'int', 'int'),
-    $name: PropertyMeta($name, String, false, 'String', 'String'),
-    $species: PropertyMeta($species, String, true, 'String', 'String?'),
-    $age: PropertyMeta($age, int, true, 'int', 'int?'),
-  });
+  @override
+  String $toJson() {
+    return this.toJson();
+  }
+
+  // for macro but not required in ISuperModel
+  dynamic operator[](String key) {
+    var getter = _$getters[key];
+    if (getter==null)
+      return null;
+    return getter!(this);
+  }
+
+  // for macro can't be part of ISuperModel
+  MappableAnimal $copyWith({
+    int? id,
+    String? name,
+    String? species,
+    int? age
+  }) {
+    return MappableAnimal(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      species: species ?? this.species,
+      age: age ?? this.age
+    );
+  }
 }

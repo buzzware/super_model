@@ -97,7 +97,7 @@ void main() {
       });
 
       test('meta constants', () {
-        final animal = MappableAnimal(
+        final animal = const MappableAnimal(
             id: 3,
             name: "Fred"
         );
@@ -128,7 +128,7 @@ void main() {
       });
 
       test('copyWith', () {
-        final animal = MappableAnimal(
+        final animal = const MappableAnimal(
           id: 3,
           name: "Fred",
           species: "dog"
@@ -141,7 +141,7 @@ void main() {
       });
 
       test('copyWithMap', () {
-        final animal = MappableAnimal(
+        final animal = const MappableAnimal(
           id: 3,
           name: "Fred",
           species: "dog"

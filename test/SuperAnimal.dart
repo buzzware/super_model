@@ -21,7 +21,7 @@ class SuperAnimal extends SuperModelBase with SuperAnimalMappable, SuperAnimalSu
   final String name;
   final String? species;
   final int? age;
-  
+
   // Implementation of required method from SuperModelBase
   @override
   T getProperty<T>(String propertyName) {
@@ -33,19 +33,19 @@ class SuperAnimal extends SuperModelBase with SuperAnimalMappable, SuperAnimalSu
       default: throw Exception('Unknown property: $propertyName');
     }
   }
-  
+
   // Add static serialization methods needed for tests
   static SuperAnimal fromJson(String json) => SuperAnimalMapper.fromJson(json);
   static SuperAnimal fromMap(Map<String, dynamic> map) => SuperAnimalMapper.fromMap(map);
   static SuperAnimal $fromJson(String json) => SuperAnimalMapper.fromJson(json);
   static SuperAnimal $fromMap(Map<String, dynamic> map) => SuperAnimalMapper.fromMap(map);
-  
+
   // Add static field name constants for tests
   static const String $name = 'name';
   static const String $species = 'species';
   static const String $age = 'age';
   static const String $id = 'id';
-  
+
   // Add static meta for tests
   static const ModelClassMeta $meta = ModelClassMeta(SuperAnimal, 'id', int, {
     $id: PropertyMeta($id, int, false, 'int', 'int'),

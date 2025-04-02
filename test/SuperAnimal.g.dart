@@ -9,7 +9,7 @@ part of 'SuperAnimal.dart';
 // **************************************************************************
 // MappableSuperModelGenerator
 // **************************************************************************
-extension SuperAnimalMappableFields on SuperAnimal {
+class SuperAnimalMappableFields {
   static const String $id = 'id';
   static const String $name = 'name';
   static const String $species = 'species';

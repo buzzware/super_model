@@ -9,7 +9,7 @@ part of 'person_model.dart';
 // **************************************************************************
 // MappableSuperModelGenerator
 // **************************************************************************
-extension EmployeeMappableFields on Employee {
+class EmployeeMappableFields {
   static const String $id = 'id';
   static const String $name = 'name';
   static const String $position = 'position';

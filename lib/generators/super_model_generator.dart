@@ -20,17 +20,17 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
     final classElement = element;
     final className = classElement.name;
     final fields = classElement.fields.where((f) => !f.isStatic && !f.name.startsWith('_')).toList();
-    
+
     final buffer = StringBuffer();
-    
+
     // Add a part directive to include the generated code
     buffer.writeln('// **************************************************************************');
     buffer.writeln('// SuperModelGenerator');
     buffer.writeln('// **************************************************************************');
-    
+
     // Create an extension to hold the static members
     buffer.writeln('extension ${className}SuperModelGeneratedFields on $className {');
-    
+
     // Generate field constants
     for (final field in fields) {
       buffer.writeln('  static const String \$${field.name} = "${field.name}";');
@@ -45,7 +45,7 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
       }
     }
     idField ??= fields.isNotEmpty ? fields.first : null;
-    
+
     final idName = idField?.name ?? 'id';
     final idType = idField != null ? _typeToString(idField.type) : 'int';
 
@@ -58,10 +58,10 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
     }
     buffer.writeln('  });');
     buffer.writeln('}');
-    
+
     // Create a mixin for instance methods
     buffer.writeln('mixin ${className}SuperModelMixin on SuperModelBase {');
-    
+
     // Getters implementation
     final gettersMap = fields.map((f) => '"${f.name}": () => (this as $className).${f.name}').join(',');
     buffer.writeln('  @override');
@@ -103,18 +103,18 @@ class SuperModelIdGenerator extends GeneratorForAnnotation<SuperModelId> {
     final publicName = fieldName.startsWith('_') ? fieldName.substring(1) : fieldName;
     final typeString = _typeToString(fieldElement.type);
     final className = (fieldElement.enclosingElement as ClassElement).name;
-    
+
     final buffer = StringBuffer();
     buffer.writeln('// **************************************************************************');
     buffer.writeln('// SuperModelIdGenerator');
     buffer.writeln('// **************************************************************************');
-    
+
     // Create a class with static constants for id name and type
     buffer.writeln('class ${className}SuperModelIdFields {');
     buffer.writeln('  static const String idName = "${fieldName}";');
     buffer.writeln('  static const Type idType = $typeString;');
     buffer.writeln('}');
-    
+
     return buffer.toString();
   }
 
@@ -138,15 +138,15 @@ class MappableSuperModelGenerator extends GeneratorForAnnotation<MappableSuperMo
     final className = classElement.name;
     final mapperClassName = "${className}Mapper";
     final fields = classElement.fields.where((f) => !f.isStatic && !f.name.startsWith('_')).toList();
-    
+
     final buffer = StringBuffer();
-    
+
     buffer.writeln('// **************************************************************************');
     buffer.writeln('// MappableSuperModelGenerator');
     buffer.writeln('// **************************************************************************');
-    
+
     // Create an extension for static members
-    buffer.writeln('extension ${className}MappableFields on $className {');
+    buffer.writeln('class ${className}MappableFields {');
 
     // Generate field constants if not already done by SuperModel
     for (final field in fields) {
@@ -166,51 +166,51 @@ class MappableSuperModelGenerator extends GeneratorForAnnotation<MappableSuperMo
     }
     buffer.writeln('  };');
     buffer.writeln('}');
-    
+
     // Create a mixin for instance methods
     buffer.writeln('mixin ${className}MappableMixin on SuperModelBase implements ISuperModel {');
 
     // Override ISuperModel methods
     buffer.writeln('  @override');
     buffer.writeln('  ModelClassMeta get \$classMeta => ${className}SuperModelGeneratedFields.\$meta;');
-    
+
     buffer.writeln('  @override');
     buffer.writeln('  M \$copyWithMap<M>(Map<String, dynamic> map) {');
     buffer.writeln('    final mergedMap = {...(this as $className).toMap(), ...map};');
     buffer.writeln('    return ${className}MappableFields.fromMap(mergedMap) as M;');
     buffer.writeln('  }');
-    
+
     buffer.writeln('  @override');
     buffer.writeln('  T? \$get<T>(String key, [T? defaultValue]) {');
     buffer.writeln('    final getter = ${className}MappableFields._\$getters[key];');
     buffer.writeln('    if (getter == null) return defaultValue;');
     buffer.writeln('    return getter(this as $className) as T?;');
     buffer.writeln('  }');
-    
+
     buffer.writeln('  @override');
     buffer.writeln('  Map<String, dynamic> \$toMap() {');
     buffer.writeln('    if (this is $className) {');
     buffer.writeln('      return (this as $className).toMap();');
-    buffer.writeln('    }');    
+    buffer.writeln('    }');
     buffer.writeln('    throw UnimplementedError("toMap() not implemented in \${this.runtimeType}");');
     buffer.writeln('  }');
-    
+
     buffer.writeln('  @override');
     buffer.writeln('  String \$toJson() {');
     buffer.writeln('    if (this is $className) {');
     buffer.writeln('      return (this as $className).toJson();');
-    buffer.writeln('    }');    
+    buffer.writeln('    }');
     buffer.writeln('    throw UnimplementedError("toJson() not implemented in \${this.runtimeType}");');
     buffer.writeln('  }');
-    
+
     buffer.writeln('  dynamic operator [](String key) {');
     buffer.writeln('    final getter = ${className}MappableFields._\$getters[key];');
     buffer.writeln('    return getter == null ? null : getter(this as $className);');
     buffer.writeln('  }');
-    
+
     // CopyWith method
     buffer.writeln('  $className \$copyWith({');
-    
+
     // Get the constructor parameters
     ConstructorElement? constructor;
     try {
@@ -220,7 +220,7 @@ class MappableSuperModelGenerator extends GeneratorForAnnotation<MappableSuperMo
     } catch (_) {
       constructor = classElement.constructors.isNotEmpty ? classElement.constructors.first : null;
     }
-    
+
     final paramMap = <String, ParameterElement>{};
     if (constructor != null) {
       for (var param in constructor.parameters) {
@@ -229,7 +229,7 @@ class MappableSuperModelGenerator extends GeneratorForAnnotation<MappableSuperMo
         }
       }
     }
-    
+
     // Generate parameter declarations for copyWith
     // All parameters in copyWith are optional since they default to the current value
     for (final field in fields) {
@@ -237,14 +237,14 @@ class MappableSuperModelGenerator extends GeneratorForAnnotation<MappableSuperMo
       final rawType = field.type.toString();
       final isNullable = rawType.endsWith('?');
       final typeString = isNullable ? rawType : '$rawType?';
-      
+
       buffer.writeln('    $typeString ${field.name},');
     }
-    
+
     buffer.writeln('  }) {');
     buffer.writeln('    final self = this as $className;');
     buffer.writeln('    return $className(');
-    
+
     // Only include fields that are present in the constructor parameters
     for (final field in fields) {
       final param = paramMap[field.name];
@@ -280,7 +280,7 @@ class BelongsToGenerator extends GeneratorForAnnotation<BelongsTo> {
     final className = (fieldElement.enclosingElement as ClassElement).name;
     final foreignKey = annotation.read('foreignKey').stringValue;
     final fieldType = _typeToString(fieldElement.type);
-    
+
     final buffer = StringBuffer();
     buffer.writeln('// **************************************************************************');
     buffer.writeln('// BelongsToGenerator');
@@ -292,13 +292,13 @@ class BelongsToGenerator extends GeneratorForAnnotation<BelongsTo> {
     buffer.writeln('  static const String relatedField = "${fieldName}";');
     buffer.writeln('  static const Type relatedType = $fieldType;');
     buffer.writeln('}');
-    
+
     return buffer.toString();
   }
-  
+
   // Helper to capitalize first letter for extension naming
   String capitalize(String s) => s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
-  
+
   // Use utility method from generator_utils.dart instead
   String _typeToString(DartType type) {
     return dartTypeToString(type);

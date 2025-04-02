@@ -9,7 +9,7 @@ part of 'AssociationAnimal.dart';
 // **************************************************************************
 // MappableSuperModelGenerator
 // **************************************************************************
-extension PersonMappableFields on Person {
+class PersonMappableFields {
   static const String $id = 'id';
   static const String $name = 'name';
   static const fromJson = PersonMapper.fromJson;
@@ -74,7 +74,7 @@ mixin PersonMappableMixin on SuperModelBase implements ISuperModel {
 // **************************************************************************
 // MappableSuperModelGenerator
 // **************************************************************************
-extension AssociationAnimalMappableFields on AssociationAnimal {
+class AssociationAnimalMappableFields {
   static const String $id = 'id';
   static const String $name = 'name';
   static const String $species = 'species';

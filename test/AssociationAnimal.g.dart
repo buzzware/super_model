@@ -158,7 +158,7 @@ mixin AssociationAnimalMappableMixin on SuperModelBase implements ISuperModel {
 extension PersonSuperModelGeneratedFields on Person {
   static const String $id = "id";
   static const String $name = "name";
-  static const ModelClassMeta $meta = ModelClassMeta(Person, "id", int, {
+  static const ModelClassMeta $meta = ModelClassMeta(Person, null, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
   });
@@ -189,7 +189,7 @@ extension AssociationAnimalSuperModelGeneratedFields on AssociationAnimal {
   static const String $age = "age";
   static const String $owner = "owner";
   static const ModelClassMeta $meta =
-      ModelClassMeta(AssociationAnimal, "id", int, {
+      ModelClassMeta(AssociationAnimal, null, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
     $species: const PropertyMeta($species, String, true, 'String', 'String?'),

@@ -12,7 +12,7 @@ mixin CarMeta {
   static const String $colour = 'colour';
   static const String $manufacturer_id = 'manufacturer_id';
 
-  static ModelClassMeta $meta = const ModelClassMeta(Car, "id", int, {
+  static ModelClassMeta $meta = const ModelClassMeta(Car, null, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
     $year: const PropertyMeta($year, int, false, 'int', 'int'),

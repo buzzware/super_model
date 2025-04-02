@@ -50,7 +50,7 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
     final idType = idField != null ? _typeToString(idField.type) : 'int';
 
     // Generate meta information
-    buffer.writeln('  static const ModelClassMeta \$meta = ModelClassMeta($className, "$idName", $idType, {');
+    buffer.writeln('  static const ModelClassMeta \$meta = ModelClassMeta($className, null, "$idName", $idType, {');
     for (final field in fields) {
       final typeString = _typeToString(field.type);
       final isNullable = field.type.toString().endsWith('?');

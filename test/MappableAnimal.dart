@@ -20,7 +20,7 @@ class MappableAnimal with MappableAnimalMappable implements ISuperModel {
   static const String $species = 'species';
   static const String $age = 'age';
 
-  static const ModelClassMeta $meta = const ModelClassMeta(MappableAnimal,MappableAnimal.$id,int, {
+  static const ModelClassMeta $meta = const ModelClassMeta(MappableAnimal, null, MappableAnimal.$id,int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
     $species: const PropertyMeta($species, String, true, 'String', 'String?'),

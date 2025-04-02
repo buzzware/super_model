@@ -91,7 +91,8 @@ extension SuperAnimalSuperModelGeneratedFields on SuperAnimal {
   static const String $name = "name";
   static const String $species = "species";
   static const String $age = "age";
-  static const ModelClassMeta $meta = ModelClassMeta(SuperAnimal, "id", int, {
+  static const ModelClassMeta $meta =
+      ModelClassMeta(SuperAnimal, null, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
     $species: const PropertyMeta($species, String, true, 'String', 'String?'),

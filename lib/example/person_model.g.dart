@@ -91,7 +91,7 @@ extension PersonSuperModelGeneratedFields on Person {
   static const String $name = "name";
   static const String $age = "age";
   static const String $email = "email";
-  static const ModelClassMeta $meta = ModelClassMeta(Person, "id", int, {
+  static const ModelClassMeta $meta = ModelClassMeta(Person, null, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
     $age: const PropertyMeta($age, int, false, 'int', 'int'),
@@ -126,7 +126,8 @@ extension EmployeeSuperModelGeneratedFields on Employee {
   static const String $name = "name";
   static const String $position = "position";
   static const String $salary = "salary";
-  static const ModelClassMeta $meta = ModelClassMeta(Employee, "id", int, {
+  static const ModelClassMeta $meta =
+      ModelClassMeta(Employee, null, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
     $position: const PropertyMeta($position, String, false, 'String', 'String'),
@@ -160,7 +161,8 @@ extension DepartmentSuperModelGeneratedFields on Department {
   static const String $id = "id";
   static const String $name = "name";
   static const String $employees = "employees";
-  static const ModelClassMeta $meta = ModelClassMeta(Department, "id", int, {
+  static const ModelClassMeta $meta =
+      ModelClassMeta(Department, null, "id", int, {
     $id: const PropertyMeta($id, int, false, 'int', 'int'),
     $name: const PropertyMeta($name, String, false, 'String', 'String'),
     $employees: const PropertyMeta($employees, List, false, 'List', 'List'),

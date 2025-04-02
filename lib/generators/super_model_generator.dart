@@ -72,6 +72,8 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
     // ClassMeta getter
     buffer.writeln('  @override');
     buffer.writeln('  ModelClassMeta get \$classMeta => ${className}SuperModelGeneratedFields.\$meta;');
+    buffer.writeln('  static const \$fromJson = ${className}Mapper.fromJson;');
+    buffer.writeln('  static const \$fromMap = ${className}Mapper.fromMap;');
     buffer.writeln('}');
 
     return buffer.toString();

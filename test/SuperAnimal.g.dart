@@ -106,4 +106,6 @@ mixin SuperAnimalMeta on SuperModelBase {
 
   @override
   ModelClassMeta get $classMeta => SuperAnimalSuperModelGeneratedFields.$meta;
+  static const $fromJson = SuperAnimalMapper.fromJson;
+  static const $fromMap = SuperAnimalMapper.fromMap;
 }

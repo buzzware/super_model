@@ -18,7 +18,7 @@ void main() {
 
       test('fromJson', () {
         const jsonString = '{"id": 1,"name":"Fido","species":"Dog","age":3}';
-        final animal = SuperAnimal.fromJson(jsonString);
+        final animal = SuperAnimalMapper.fromJson(jsonString);
         expect(animal.id, equals(1));
         expect(animal.name, equals('Fido'));
         expect(animal.species, equals('Dog'));
@@ -42,7 +42,7 @@ void main() {
           'species': 'Bird',
           'age': 1,
         };
-        final animal = SuperAnimal.fromMap(map);
+        final animal = SuperAnimalMapper.fromMap(map);
         expect(animal.id, equals(3));
         expect(animal.name, equals('Tweety'));
         expect(animal.species, equals('Bird'));
@@ -61,7 +61,7 @@ void main() {
 
       test('fromJson', () {
         const jsonString = '{"id": 1,"name":"Fido","species":"Dog","age":3}';
-        final animal = SuperAnimal.$fromJson(jsonString);
+        final animal = SuperAnimalMeta.$fromJson(jsonString);
         expect(animal.id, equals(1));
         expect(animal.name, equals('Fido'));
         expect(animal.species, equals('Dog'));
@@ -85,7 +85,7 @@ void main() {
           'species': 'Bird',
           'age': 1,
         };
-        final animal = SuperAnimal.$fromMap(map);
+        final animal = SuperAnimalMeta.$fromMap(map);
         expect(animal.id, equals(3));
         expect(animal.name, equals('Tweety'));
         expect(animal.species, equals('Bird'));
@@ -161,7 +161,7 @@ void main() {
         final model2 = model.$copyWithMap<ISuperModel>({'name': 'John'});
         expect(model2.$get('name'),equals('John'));
         expect(model2.$toJson(),equals('{"id":3,"name":"John","species":"dog","age":null}'));
-        final model3 = SuperAnimal.$fromJson(model2.$toJson());
+        final model3 = SuperAnimalMeta.$fromJson(model2.$toJson());
         expect(model3.$get('name'),equals('John'));
       });
     });

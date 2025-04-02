@@ -105,6 +105,8 @@ mixin PersonMeta on SuperModelBase {
 
   @override
   ModelClassMeta get $classMeta => PersonSuperModelGeneratedFields.$meta;
+  static const $fromJson = PersonMapper.fromJson;
+  static const $fromMap = PersonMapper.fromMap;
 }
 
 // **************************************************************************
@@ -135,6 +137,8 @@ mixin EmployeeMeta on SuperModelBase {
 
   @override
   ModelClassMeta get $classMeta => EmployeeSuperModelGeneratedFields.$meta;
+  static const $fromJson = EmployeeMapper.fromJson;
+  static const $fromMap = EmployeeMapper.fromMap;
 }
 
 // **************************************************************************
@@ -163,4 +167,6 @@ mixin DepartmentMeta on SuperModelBase {
 
   @override
   ModelClassMeta get $classMeta => DepartmentSuperModelGeneratedFields.$meta;
+  static const $fromJson = DepartmentMapper.fromJson;
+  static const $fromMap = DepartmentMapper.fromMap;
 }

@@ -163,6 +163,8 @@ mixin PersonMeta on SuperModelBase {
 
   @override
   ModelClassMeta get $classMeta => PersonSuperModelGeneratedFields.$meta;
+  static const $fromJson = PersonMapper.fromJson;
+  static const $fromMap = PersonMapper.fromMap;
 }
 
 // **************************************************************************
@@ -199,4 +201,6 @@ mixin AssociationAnimalMeta on SuperModelBase {
   @override
   ModelClassMeta get $classMeta =>
       AssociationAnimalSuperModelGeneratedFields.$meta;
+  static const $fromJson = AssociationAnimalMapper.fromJson;
+  static const $fromMap = AssociationAnimalMapper.fromMap;
 }

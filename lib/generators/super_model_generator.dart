@@ -63,15 +63,15 @@ class SuperModelGenerator extends GeneratorForAnnotation<SuperModel> {
     buffer.writeln('mixin ${className}Meta on SuperModelBase {');
 
     // Getters implementation
-    final gettersMap = fields.map((f) => '"${f.name}": () => (this as $className).${f.name}').join(',');
+    final gettersMap = fields.map((f) => '"${f.name}": (o) => (o as $className).${f.name}').join(',');
     buffer.writeln('  @override');
-    buffer.writeln('  Map<String, dynamic Function()> get \$getters => {$gettersMap};');
+    buffer.writeln('  Map<String, dynamic Function(SuperModelBase)> get \$getters => {$gettersMap};');
 
     buffer.writeln('  @override');
     buffer.writeln('  dynamic operator[](String key) {');
     buffer.writeln('    var getter = \$getters[key];');
     buffer.writeln('    if (getter == null) return null;');
-    buffer.writeln('    return getter();');
+    buffer.writeln('    return getter(this);');
     buffer.writeln('  }');
 
     // ClassMeta getter

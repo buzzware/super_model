@@ -7,7 +7,7 @@ targets:
 builders:
   super_model_generators:
     import: "package:super_model/builder.dart"
-    builder_factories: ["superModelBuilder", "superModelIdBuilder", "mappableSuperModelBuilder", "belongsToBuilder"]
+    builder_factories: ["superModelBuilder", "mappableSuperModelBuilder", "belongsToBuilder"]
     build_extensions: {".dart": [".super_model.g.part"]}
     auto_apply: dependents
     build_to: cache

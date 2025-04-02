@@ -15,6 +15,8 @@ class MappableSuperModel {
 
 // Annotation to replace the BelongsTo macro
 class BelongsTo {
-  final String foreignKey;
-  const BelongsTo({this.foreignKey = ''});
+  const BelongsTo(Type this.type, this.property);
+
+  final Type type;
+  final String? property;
 }

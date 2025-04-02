@@ -9,8 +9,8 @@ void main() {
     group('associations', () {
       test('accessible', () {
         final animal = AssociationAnimal(id: 2, name: 'Whiskers', species: 'Cat', age: 2);
-        animal.owner = Person(id: 1, name: 'Fred');
-        expect(animal.owner?.id, equals(1));
+        animal.person = Person(id: 1, name: 'Fred');
+        expect(animal.person?.id, equals(1));
       });
     });
   });

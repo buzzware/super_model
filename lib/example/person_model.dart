@@ -73,7 +73,7 @@ class Department extends SuperModelBase with EmployeeMappable, DepartmentMeta {
 
   final String name;
 
-  @BelongsTo(foreignKey: 'departmentId')
+  @BelongsTo(idProperty: 'departmentId')
   final List<Employee> employees;
 
   Department({

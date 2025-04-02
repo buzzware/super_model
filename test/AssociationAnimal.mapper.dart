@@ -127,9 +127,9 @@ class AssociationAnimalMapper extends ClassMapperBase<AssociationAnimal> {
   static int? _$age(AssociationAnimal v) => v.age;
   static const Field<AssociationAnimal, int> _f$age =
       Field('age', _$age, opt: true);
-  static Person? _$owner(AssociationAnimal v) => v.owner;
-  static const Field<AssociationAnimal, Person> _f$owner =
-      Field('owner', _$owner, mode: FieldMode.member);
+  static int? _$person_id(AssociationAnimal v) => v.person_id;
+  static const Field<AssociationAnimal, int> _f$person_id =
+      Field('person_id', _$person_id, opt: true);
 
   @override
   final MappableFields<AssociationAnimal> fields = const {
@@ -137,7 +137,7 @@ class AssociationAnimalMapper extends ClassMapperBase<AssociationAnimal> {
     #name: _f$name,
     #species: _f$species,
     #age: _f$age,
-    #owner: _f$owner,
+    #person_id: _f$person_id,
   };
 
   static AssociationAnimal _instantiate(DecodingData data) {
@@ -145,7 +145,8 @@ class AssociationAnimalMapper extends ClassMapperBase<AssociationAnimal> {
         id: data.dec(_f$id),
         name: data.dec(_f$name),
         species: data.dec(_f$species),
-        age: data.dec(_f$age));
+        age: data.dec(_f$age),
+        person_id: data.dec(_f$person_id));
   }
 
   @override
@@ -203,7 +204,7 @@ extension AssociationAnimalValueCopy<$R, $Out>
 
 abstract class AssociationAnimalCopyWith<$R, $In extends AssociationAnimal,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
-  $R call({int? id, String? name, String? species, int? age});
+  $R call({int? id, String? name, String? species, int? age, int? person_id});
   AssociationAnimalCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -221,19 +222,22 @@ class _AssociationAnimalCopyWithImpl<$R, $Out>
           {int? id,
           String? name,
           Object? species = $none,
-          Object? age = $none}) =>
+          Object? age = $none,
+          Object? person_id = $none}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (name != null) #name: name,
         if (species != $none) #species: species,
-        if (age != $none) #age: age
+        if (age != $none) #age: age,
+        if (person_id != $none) #person_id: person_id
       }));
   @override
   AssociationAnimal $make(CopyWithData data) => AssociationAnimal(
       id: data.get(#id, or: $value.id),
       name: data.get(#name, or: $value.name),
       species: data.get(#species, or: $value.species),
-      age: data.get(#age, or: $value.age));
+      age: data.get(#age, or: $value.age),
+      person_id: data.get(#person_id, or: $value.person_id));
 
   @override
   AssociationAnimalCopyWith<$R2, AssociationAnimal, $Out2> $chain<$R2, $Out2>(

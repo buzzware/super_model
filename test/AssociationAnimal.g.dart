@@ -78,7 +78,7 @@ mixin AssociationAnimalMeta on SuperModelBase implements ISuperModel {
   static const String $name = "name";
   static const String $species = "species";
   static const String $age = "age";
-  static const String $owner = "owner";
+  static const String $person_id = "person_id";
   static const fromJson = AssociationAnimalMapper.fromJson;
   static const fromMap = AssociationAnimalMapper.fromMap;
   static const $fromJson = AssociationAnimalMapper.fromJson;
@@ -93,8 +93,8 @@ mixin AssociationAnimalMeta on SuperModelBase implements ISuperModel {
         (o) => (o as AssociationAnimal).species),
     $age: PropertyMeta(
         $age, int, true, 'int', 'int?', (o) => (o as AssociationAnimal).age),
-    $owner: PropertyMeta($owner, Person, true, 'Person', 'Person?',
-        (o) => (o as AssociationAnimal).owner),
+    $person_id: PropertyMeta($person_id, int, true, 'int', 'int?',
+        (o) => (o as AssociationAnimal).person_id),
   });
   @override
   dynamic operator [](String key) {
@@ -138,7 +138,7 @@ mixin AssociationAnimalMeta on SuperModelBase implements ISuperModel {
     String? name,
     String? species,
     int? age,
-    Person? owner,
+    int? person_id,
   }) {
     final self = this as AssociationAnimal;
     return AssociationAnimal(
@@ -146,6 +146,7 @@ mixin AssociationAnimalMeta on SuperModelBase implements ISuperModel {
       name: name ?? self.name,
       species: species ?? self.species,
       age: age ?? self.age,
+      person_id: person_id ?? self.person_id,
     );
   }
 }

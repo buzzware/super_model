@@ -1,81 +1,67 @@
 # SuperModel
 
-A Dart package for model handling using code generation, migrated from experimental Dart macros.
+A Dart package containing base class, annotations and utilities for data models with reflection and relationships
 
-## Migration from Macros to Code Generation
+It is based on https://github.com/buzzware/cascade/blob/master/Buzzware.Cascade/SuperModel.cs
 
-This package has been migrated from using Dart's experimental macros to using code generation with build_runner and source_gen. This change ensures better compatibility and stability with the Dart ecosystem.
+# Usage
 
-### What Changed?
-
-1. Replaced macros with annotations:
-   - `SuperModel` → `@SuperModel()`
-   - `SuperModelId` → `@SuperModelId()`
-   - `MappableSuperModel` → `@MappableSuperModel()`
-   - `BelongsTo` → `@BelongsTo()`
-
-2. Now uses build_runner workflow for code generation
-3. Removed all dependencies on the experimental macros feature
-
-## Usage
-
-### Setup
-
-1. Add these dependencies to your pubspec.yaml:
-
-```yaml
-dependencies:
-  super_model: ^0.0.1
-  
-dev_dependencies:
-  build_runner: ^2.4.0
-```
-
-2. Create your models with annotations:
-
-```dart
+```Dart
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:super_model/super_model.dart';
+part 'SuperAnimal.mapper.dart';
+part 'SuperAnimal.g.dart';
 
-part 'person.g.dart'; // This will contain generated code
-
+// an animal model using full dart_mappable generation and implementing ISuperModel using @MappableSuperModel() macro
 @SuperModel()
-class Person {
+@MappableSuperModel()
+@MappableClass()
+class SuperAnimal extends SuperModelBase with SuperAnimalMappable, SuperAnimalMeta {
+
+  SuperAnimal({
+    required this.id,
+    required this.name,
+    this.species,
+    this.age,
+  });
+
   @SuperModelId()
-  final int _id;
-  
-  final String _name;
-  final int _age;
-  
-  Person({
-    required int id,
-    required String name,
-    required int age,
-  }) : 
-    _id = id,
-    _name = name,
-    _age = age;
+  final int id;
+  final String name;
+  final String? species;
+  final int? age;
 }
 ```
 
-3. Run build_runner to generate code:
+```Dart
+test('meta constants', () {
+  final animal = SuperAnimal(
+      id: 3,
+      name: "Fred"
+  );
+  expect(animal.name,equals("Fred"));
 
-```bash
-dart run build_runner build
-```
+  expect(animal.$get(SuperAnimalMeta.$name),equals("Fred"));
+  expect(animal.$get<String>(SuperAnimalMeta.$name),equals("Fred"));
+  expect(animal[SuperAnimalMeta.$name],equals("Fred"));
 
-### Key Components
+  expect(animal.$get<int>(SuperAnimalMeta.$info.idName!),equals(3));
+  expect(animal.$get<num>(SuperAnimalMeta.$info.idName!),equals(3));
+  expect(animal[SuperAnimalMeta.$id],equals(3));
 
-- `@SuperModel()`: Base annotation for models
-- `@SuperModelId()`: Marks a field as the ID for the model
-- `@MappableSuperModel()`: Adds mapping capabilities (toJson/fromJson)
-- `@BelongsTo()`: Defines relationships between models
+  expect(animal.$classInfo.fields.keys.toList(),equals(['id','name','species','age']));
+  expect(animal[animal.$classInfo.idName!],equals(3));
+  expect(animal.$classInfo.idType,equals(int));
 
-## Example
+  expect(SuperAnimalMeta.$id, equals('id'));
+  expect(SuperAnimalMeta.$name, equals('name'));
+  expect(SuperAnimalMeta.$info.fields[SuperAnimalMeta.$id]!.nullable,isFalse);
+  expect(SuperAnimalMeta.$info.fields[SuperAnimalMeta.$id]!.type,equals(int));
 
-See the `/example` directory for complete examples of how to use SuperModel with the new code generation approach.
+  expect(SuperAnimalMeta.$info.idName,equals('id'));
+  expect(SuperAnimalMeta.$info.idType,equals(int));
 
-## Running Tests
-
-```bash
-dart test
+  expect(SuperAnimalMeta.$info.fields[SuperAnimalMeta.$name]!.nullable,isFalse);
+  expect(SuperAnimalMeta.$info.fields[SuperAnimalMeta.$name]!.type,equals(String));
+});
 ```

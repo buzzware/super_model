@@ -234,7 +234,7 @@ class BelongsToGenerator extends GeneratorForAnnotation<BelongsTo> {
 
     final fieldElement = element;
     final fieldName = fieldElement.name;
-    final className = (fieldElement.enclosingElement as ClassElement).name;
+    final className = (fieldElement.enclosingElement3 as ClassElement).name;
 
     // Access the type and property from the BelongsTo annotation
     final associatedType = annotation.read('type').typeValue;

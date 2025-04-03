@@ -1,6 +1,6 @@
 name: super_model
-description: A new Dart package for model handling using code generation
-version: 0.0.1
+description: Base class, annotations and utilities for data models with reflection and relationships
+version: 0.1.0
 homepage: https://github.com/yourusername/super_model
 publish_to: none  # Remove this line when publishing to pub.dev
 
